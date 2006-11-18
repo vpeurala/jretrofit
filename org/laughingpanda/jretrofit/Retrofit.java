@@ -4,6 +4,16 @@ package org.laughingpanda.jretrofit;
  * @author Ville Peurala
  */
 public final class Retrofit {
+    public static Object complete(Object target, Class interfaceToImplement) {
+        return new RetrofitterWithoutMethodLookupCaching().complete(target,
+                interfaceToImplement);
+    }
+
+    public static Object complete(Object target, Class[] interfacesToImplement) {
+        return new RetrofitterWithoutMethodLookupCaching().complete(target,
+                interfacesToImplement);
+    }
+
     /**
      * TODO: write javadoc
      * @param target
