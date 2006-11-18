@@ -1,8 +1,10 @@
-package net.sf.jretrofit;
+package org.laughingpanda.jretrofit;
 
 import java.lang.reflect.Constructor;
 
-import net.sf.jretrofit.fixture.Human;
+import org.laughingpanda.jretrofit.Retrofit;
+import org.laughingpanda.jretrofit.fixture.Human;
+
 
 /**
  * @author Ville Peurala

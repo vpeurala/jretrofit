@@ -1,4 +1,4 @@
-package net.sf.jretrofit;
+package org.laughingpanda.jretrofit;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

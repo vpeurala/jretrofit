@@ -1,9 +1,10 @@
-package net.sf.jretrofit.performance;
+package org.laughingpanda.jretrofit.performance;
+
+import org.laughingpanda.jretrofit.Retrofit;
+import org.laughingpanda.jretrofit.fixture.Human;
+import org.laughingpanda.jretrofit.fixture.Person;
 
 import junit.framework.TestCase;
-import net.sf.jretrofit.Retrofit;
-import net.sf.jretrofit.fixture.Human;
-import net.sf.jretrofit.fixture.Person;
 
 /**
  * Some crude performance tests, mainly to see the difference

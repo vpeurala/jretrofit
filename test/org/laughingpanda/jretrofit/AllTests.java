@@ -1,4 +1,4 @@
-package net.sf.jretrofit;
+package org.laughingpanda.jretrofit;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -8,7 +8,7 @@ import junit.framework.TestSuite;
  */
 public class AllTests {
     public static Test suite() {
-        TestSuite suite = new TestSuite("Test for net.sf.jretrofit");
+        TestSuite suite = new TestSuite("Test for org.laughingpanda.jretrofit");
         //$JUnit-BEGIN$
         suite.addTestSuite(RetrofitWithoutMethodCachingTest.class);
         suite.addTestSuite(RetrofitWithMethodCachingTest.class);

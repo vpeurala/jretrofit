@@ -1,15 +1,17 @@
-package net.sf.jretrofit;
+package org.laughingpanda.jretrofit;
 
 import java.awt.Color;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Date;
 
+import org.laughingpanda.jretrofit.Retrofit;
+import org.laughingpanda.jretrofit.fixture.AngryException;
+import org.laughingpanda.jretrofit.fixture.City;
+import org.laughingpanda.jretrofit.fixture.Human;
+import org.laughingpanda.jretrofit.fixture.Person;
+import org.laughingpanda.jretrofit.fixture.Resident;
+
 import junit.framework.TestCase;
-import net.sf.jretrofit.fixture.AngryException;
-import net.sf.jretrofit.fixture.City;
-import net.sf.jretrofit.fixture.Human;
-import net.sf.jretrofit.fixture.Person;
-import net.sf.jretrofit.fixture.Resident;
 
 /**
  * A set of base assertions for unit tests. Extend
