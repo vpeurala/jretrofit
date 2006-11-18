@@ -5,13 +5,12 @@ import java.lang.reflect.Constructor;
 import org.laughingpanda.jretrofit.Retrofit;
 import org.laughingpanda.jretrofit.fixture.Human;
 
-
 /**
  * @author Ville Peurala
  */
 public class RetrofitWithMethodCachingTest extends AbstractRetrofitTestCase {
     protected Human createHuman() {
-        return (Human) Retrofit.retrofit(person, Human.class);
+        return (Human) Retrofit.partial(person, Human.class);
     }
 
     public void testCachedMethodCallShouldWorkInSameWayAsUncached() {
