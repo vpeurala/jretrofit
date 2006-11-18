@@ -8,7 +8,7 @@ import java.util.Arrays;
 /**
  * @author Ville Peurala
  */
-public abstract class AbstractRetrofitter implements Retrofitter {
+abstract class AbstractRetrofitter implements Retrofitter {
     private Class[] allInterfacesToImplement(Object target,
             Class[] interfacesToImplement) {
         ArrayList allInterfacesToImplement = new ArrayList();
