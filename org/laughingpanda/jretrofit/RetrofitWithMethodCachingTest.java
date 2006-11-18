@@ -2,7 +2,6 @@ package org.laughingpanda.jretrofit;
 
 import java.lang.reflect.Constructor;
 
-import org.laughingpanda.jretrofit.Retrofit;
 import org.laughingpanda.jretrofit.fixture.Human;
 
 /**
@@ -10,7 +9,8 @@ import org.laughingpanda.jretrofit.fixture.Human;
  */
 public class RetrofitWithMethodCachingTest extends AbstractRetrofitTestCase {
     protected Human createHuman() {
-        return (Human) Retrofit.partial(person, Human.class);
+        return (Human) Retrofit.withMethodLookupCaching().partial(person,
+                Human.class);
     }
 
     public void testCachedMethodCallShouldWorkInSameWayAsUncached() {
