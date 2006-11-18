@@ -66,6 +66,7 @@
 		</junit>
 		<fail if="test.failed">There were failing unit tests.</fail>
 		<cobertura-report format="html" srcdir="src" destdir="build/coverage" datafile="build/coverage/cobertura.ser" />
+		<cobertura-check branchrate="100" linerate="100" />
 	</target>
 
 	<target name="jar">
