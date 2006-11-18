@@ -1,4 +1,4 @@
-package net.sf.jretrofit.fixture;
+package org.laughingpanda.jretrofit.fixture;
 
 /**
  * @author Ville Peurala

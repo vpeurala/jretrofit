@@ -1,4 +1,4 @@
-package net.sf.jretrofit.fixture;
+package org.laughingpanda.jretrofit.fixture;
 
 import java.util.Date;
 
