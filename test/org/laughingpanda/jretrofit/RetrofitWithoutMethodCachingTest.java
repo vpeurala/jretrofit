@@ -6,9 +6,8 @@ import org.laughingpanda.jretrofit.fixture.Human;
  * @author Ville Peurala
  */
 public class RetrofitWithoutMethodCachingTest extends AbstractRetrofitTestCase {
-    protected Human createHuman() {
-        return (Human) Retrofit.withoutMethodLookupCaching().partial(person,
-                Human.class);
+    protected Retrofitter createRetrofitter() {
+        return Retrofit.withoutMethodLookupCaching();
     }
 
     public void testCallStaticHelpersForBetterTestCoverage() {

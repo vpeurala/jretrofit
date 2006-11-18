@@ -6,22 +6,6 @@ package org.laughingpanda.jretrofit;
 public final class Retrofit {
     /**
      * TODO: write javadoc
-     * @return
-     */
-    public static Retrofitter withMethodLookupCaching() {
-        return new RetrofitterWithMethodLookupCaching();
-    }
-
-    /**
-     * TODO: write javadoc
-     * @return
-     */
-    public static Retrofitter withoutMethodLookupCaching() {
-        return new RetrofitterWithoutMethodLookupCaching();
-    }
-
-    /**
-     * TODO: write javadoc
      * @param target
      * @param interfaceToImplement
      * @return
@@ -40,6 +24,22 @@ public final class Retrofit {
     public static Object partial(Object target, Class[] interfacesToImplement) {
         return new RetrofitterWithoutMethodLookupCaching().partial(target,
                 interfacesToImplement);
+    }
+
+    /**
+     * TODO: write javadoc
+     * @return
+     */
+    public static Retrofitter withMethodLookupCaching() {
+        return new RetrofitterWithMethodLookupCaching();
+    }
+
+    /**
+     * TODO: write javadoc
+     * @return
+     */
+    public static Retrofitter withoutMethodLookupCaching() {
+        return new RetrofitterWithoutMethodLookupCaching();
     }
 
     private Retrofit() {

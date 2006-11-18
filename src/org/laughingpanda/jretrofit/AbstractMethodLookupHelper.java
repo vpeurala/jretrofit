@@ -12,12 +12,6 @@ abstract class AbstractMethodLookupHelper {
         this.target = target;
     }
 
-    protected final Object getTarget() {
-        return target;
-    }
-
-    abstract Method findMethodToCall(Method interfaceMethod);
-
     protected boolean areMethodsCompatible(Method requestedMethod,
             Method candidateMethod) {
         return areNamesCompatible(requestedMethod, candidateMethod)
@@ -54,5 +48,11 @@ abstract class AbstractMethodLookupHelper {
         Class candidateReturnValueType = candidateMethod.getReturnType();
         return requstedReturnValueType
                 .isAssignableFrom(candidateReturnValueType);
+    }
+
+    abstract Method findMethodToCall(Method interfaceMethod);
+
+    protected final Object getTarget() {
+        return target;
     }
 }
