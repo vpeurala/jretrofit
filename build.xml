@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="JRetrofit" default="all">
+	<target name="all" depends="set_global_variables, clean_before, compile, test, jar, javadoc, generate_website" />
+
+	<target name="set_global_variables">
+		<property name="version" value="0.5" />
+	</target>
+
+	<target name="clean_before">
+		<delete dir="build" />
+		<mkdir dir="build" />
+		<mkdir dir="build/clean_classes" />
+		<mkdir dir="build/instrumented_classes" />
+		<mkdir dir="build/test_classes" />
+		<mkdir dir="build/coverage" />
+		<mkdir dir="build/lib" />
+		<mkdir dir="build/javadoc" />
+		<mkdir dir="build/website" />
+		<mkdir dir="build/dist" />
+	</target>
+
+	<target name="compile">
+		<javac srcdir="src" destdir="build/clean_classes" encoding="utf-8" source="1.3" target="1.3" debug="true" debuglevel="lines,vars,source" />
+		<javac srcdir="src" destdir="build/instrumented_classes" encoding="utf-8" source="1.3" target="1.3" debug="true" debuglevel="lines,vars,source" />
+		<javac srcdir="test" destdir="build/test_classes" encoding="utf-8" source="1.3" target="1.3" debug="true" debuglevel="lines,vars,source">
+			<classpath>
+				<pathelement location="build/instrumented_classes" />
+				<fileset dir="lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="test">
+		<taskdef resource="tasks.properties">
+			<classpath>
+				<fileset dir="lib" />
+			</classpath>
+		</taskdef>
+		<cobertura-instrument datafile="build/coverage/cobertura.ser">
+			<fileset dir="build/instrumented_classes" />
+		</cobertura-instrument>
+		<junit fork="yes" printsummary="no" errorProperty="test.failed" failureProperty="test.failed">
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="build/coverage/cobertura.ser" />
+			<classpath>
+				<pathelement location="build/instrumented_classes" />
+				<pathelement location="build/test_classes" />
+				<fileset dir="lib">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+			<formatter type="brief" usefile="false" />
+			<batchtest todir="build/test_classes">
+				<fileset dir="build/test_classes">
+					<include name="**/*Test.class" />
+					<!-- 
+					Don't run performance tests on build,
+					they take too long. Run them separately
+					if you are interested about performance
+					results.
+					-->
+					<exclude name="**/*PerformanceTest.class" />
+				</fileset>
+			</batchtest>
+		</junit>
+		<fail if="test.failed">There were failing unit tests.</fail>
+		<cobertura-report format="html" srcdir="src" destdir="build/coverage" datafile="build/coverage/cobertura.ser" />
+	</target>
+
+	<target name="jar">
+		<jar destfile="build/lib/jretrofit-${version}.jar" basedir="build/clean_classes" />
+	</target>
+
+	<target name="javadoc">
+		<javadoc destdir="build/javadoc">
+			<fileset dir="src" defaultexcludes="yes" />
+		</javadoc>
+	</target>
+
+	<target name="generate_website">
+		<exec dir="website" executable="webgen.cmd" os="Windows 2000, Windows 95, Windows 98, Windows NT, Windows XP">
+		</exec>
+		<exec dir="website" executable="webgen.sh" os="AIX, Digital Unix, FreeBSD, HP UX, Irix, Linux, Mac OS, MPE/iX, Netware 4.11, OS/2, Solaris">
+		</exec>
+		<move todir="build/website">
+			<fileset dir="website/output" />
+		</move>
+		<copy todir="build/website/Coverage" overwrite="true">
+			<fileset dir="build/coverage" />
+		</copy>
+		<copy todir="build/website/Javadoc" overwrite="true">
+			<fileset dir="build/javadoc" />
+		</copy>
+	</target>
+</project>
