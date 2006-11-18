@@ -13,6 +13,7 @@ public class AllTests {
         suite.addTestSuite(RetrofitterCreationTest.class);
         suite.addTestSuite(RetrofitWithoutMethodCachingTest.class);
         suite.addTestSuite(RetrofitWithMethodCachingTest.class);
+        suite.addTestSuite(AllMethodsNotImplementedExceptionTest.class);
         //$JUnit-END$
         return suite;
     }
