@@ -85,7 +85,7 @@ It is recommended that you use a JDK 1.3 JVM, because this project must work on 
 	</target>
 
 	<target name="javadoc">
-		<javadoc destdir="build/javadoc">
+		<javadoc destdir="build/javadoc" Public="true">
 			<fileset dir="src" defaultexcludes="yes" />
 		</javadoc>
 	</target>
