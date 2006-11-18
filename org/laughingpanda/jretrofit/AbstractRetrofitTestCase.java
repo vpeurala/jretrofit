@@ -155,8 +155,11 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     }
 
     public final void testCompleteRetrofittingOfHumanAndComparableWorksOnCompleteHuman() {
-        createRetrofitter().complete(new CompleteHuman(),
+        Object retrofittedObject = createRetrofitter().complete(
+                new CompleteHuman(),
                 new Class[] { Human.class, Comparable.class });
+        assertEquals("White", ((Human) retrofittedObject).getFavoriteColor());
+        assertEquals(1, ((Comparable) retrofittedObject).compareTo(null));
     }
 
     public final void testCompleteRetrofittingOfHumanDoesNotWorkOnPerson() {
@@ -169,7 +172,9 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     }
 
     public final void testCompleteRetrofittingOfHumanWorksOnCompleteHuman() {
-        createRetrofitter().complete(new CompleteHuman(), Human.class);
+        Object retrofittedObject = createRetrofitter().complete(
+                new CompleteHuman(), Human.class);
+        assertEquals("White", ((Human) retrofittedObject).getFavoriteColor());
     }
 
     public final void testRuntimeExceptionsAreThrownNormally() throws Exception {

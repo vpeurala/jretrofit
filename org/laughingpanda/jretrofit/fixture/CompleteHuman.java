@@ -14,7 +14,7 @@ public class CompleteHuman {
     }
 
     public String getFavoriteColor() {
-        return null;
+        return "White";
     }
 
     public String getHome() {
