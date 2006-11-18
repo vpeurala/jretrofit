@@ -4,14 +4,13 @@ import java.awt.Color;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Date;
 
-import org.laughingpanda.jretrofit.Retrofit;
+import junit.framework.TestCase;
+
 import org.laughingpanda.jretrofit.fixture.AngryException;
 import org.laughingpanda.jretrofit.fixture.City;
 import org.laughingpanda.jretrofit.fixture.Human;
 import org.laughingpanda.jretrofit.fixture.Person;
 import org.laughingpanda.jretrofit.fixture.Resident;
-
-import junit.framework.TestCase;
 
 /**
  * A set of base assertions for unit tests. Extend
@@ -96,7 +95,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     }
 
     public final void testCanImplementMultipleInterfaces() {
-        Object retrofittedObject = Retrofit.retrofit(person, new Class[] {
+        Object retrofittedObject = Retrofit.partial(person, new Class[] {
                 Human.class, Resident.class });
         Human localHuman = (Human) retrofittedObject;
         assertEquals("Antti", localHuman.getName());

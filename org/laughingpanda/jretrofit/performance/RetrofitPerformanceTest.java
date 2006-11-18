@@ -1,10 +1,10 @@
 package org.laughingpanda.jretrofit.performance;
 
+import junit.framework.TestCase;
+
 import org.laughingpanda.jretrofit.Retrofit;
 import org.laughingpanda.jretrofit.fixture.Human;
 import org.laughingpanda.jretrofit.fixture.Person;
-
-import junit.framework.TestCase;
 
 /**
  * Some crude performance tests, mainly to see the difference
@@ -35,7 +35,7 @@ public class RetrofitPerformanceTest extends TestCase {
     /**
      * Set this to true if you want to record performance results.
      */
-    public static final boolean OUTPUT_RESULTS_TO_SYSOUT = false;
+    public static final boolean OUTPUT_RESULTS_TO_SYSOUT = true;
 
     public void testBenchmarkDifferenceBetweenOrdinaryCreationAndRetrofitting()
             throws Exception {
@@ -44,43 +44,66 @@ public class RetrofitPerformanceTest extends TestCase {
                 new Person();
             }
         }, 100000);
-        long timeFor100000Retrofittings = executeTimedOperation(
+        long timeFor100000RetrofittingsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         Person person = new Person();
-                        Retrofit.retrofit(person, Human.class, true);
+                        Retrofit.withoutMethodLookupCaching().partial(person,
+                                Human.class);
+                    }
+                }, 100000);
+        long timeFor100000RetrofittingsWithCache = executeTimedOperation(
+                new Operation() {
+                    public void execute() {
+                        Person person = new Person();
+                        Retrofit.withoutMethodLookupCaching().partial(person,
+                                Human.class);
                     }
                 }, 100000);
         if (OUTPUT_RESULTS_TO_SYSOUT) {
             System.out.println("timeFor100000Creations: "
                     + timeFor100000Creations);
-            System.out.println("timeFor100000Retrofittings: "
-                    + timeFor100000Retrofittings);
+            System.out.println("timeFor100000RetrofittingsWithoutCache: "
+                    + timeFor100000RetrofittingsWithoutCache);
+            System.out.println("timeFor100000RetrofittingsWithCache: "
+                    + timeFor100000RetrofittingsWithCache);
         }
     }
 
     public void testBenchmarkDifferenceBetweenDirectCallAndCallThroughRetrofit()
             throws Exception {
         final Person person = new Person();
-        final Human human = (Human) Retrofit
-                .retrofit(person, Human.class, true);
+        final Human humanWithoutCache = (Human) Retrofit
+                .withoutMethodLookupCaching().partial(person, Human.class);
+        final Human humanWithCache = (Human) Retrofit.withMethodLookupCaching()
+                .partial(person, Human.class);
         long timeFor100000DirectGetNameCalls = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         person.getName();
                     }
                 }, 100000);
-        long timeFor100000RetrofittedGetNameCalls = executeTimedOperation(
+        long timeFor100000RetrofittedGetNameCallsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
-                        human.getName();
+                        humanWithoutCache.getName();
+                    }
+                }, 100000);
+        long timeFor100000RetrofittedGetNameCallsWithCache = executeTimedOperation(
+                new Operation() {
+                    public void execute() {
+                        humanWithCache.getName();
                     }
                 }, 100000);
         if (OUTPUT_RESULTS_TO_SYSOUT) {
             System.out.println("timeFor100000DirectGetNameCalls: "
                     + timeFor100000DirectGetNameCalls);
-            System.out.println("timeFor100000RetrofittedGetNameCalls: "
-                    + timeFor100000RetrofittedGetNameCalls);
+            System.out
+                    .println("timeFor100000RetrofittedGetNameCallsWithoutCache: "
+                            + timeFor100000RetrofittedGetNameCallsWithoutCache);
+            System.out
+                    .println("timeFor100000RetrofittedGetNameCallsWithCache: "
+                            + timeFor100000RetrofittedGetNameCallsWithCache);
         }
     }
 
