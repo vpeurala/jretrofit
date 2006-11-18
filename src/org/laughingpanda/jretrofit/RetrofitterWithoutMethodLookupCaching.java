@@ -15,7 +15,8 @@ class RetrofitterWithoutMethodLookupCaching implements Retrofitter {
     public Object partial(Object target, Class[] interfacesToImplement) {
         return Proxy.newProxyInstance(target.getClass().getClassLoader(),
                 allInterfacesToImplement(target, interfacesToImplement),
-                new RetrofitInvocationHandler(target, false));
+                new RetrofitInvocationHandler(new NonCachingMethodLookupHelper(
+                        target)));
     }
 
     public Retrofitter withMethodLookupCaching() {
