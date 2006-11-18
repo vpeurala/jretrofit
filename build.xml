@@ -4,6 +4,17 @@
 
 	<target name="set_global_variables">
 		<property name="version" value="0.5" />
+		<fail unless="jvm">
+
+You must give property 'jvm' on the command line when running the build. 
+The value of the property must be a 'java' executable installed on your machine.
+
+For example: 
+  ant -Djvm=/opt/jdk1.3.1_19/bin/java (on Linux), or 
+  ant -Djvm=C:/jdk1.3.1_19/bin/java (on Windows).
+			
+It is recommended that you use a JDK 1.3 JVM, because this project must work on 1.3.			
+		</fail>
 	</target>
 
 	<target name="clean_before">
@@ -41,7 +52,7 @@
 		<cobertura-instrument datafile="build/coverage/cobertura.ser">
 			<fileset dir="build/instrumented_classes" />
 		</cobertura-instrument>
-		<junit fork="yes" printsummary="no" errorProperty="test.failed" failureProperty="test.failed">
+		<junit fork="yes" jvm="${jvm}" printsummary="no" errorProperty="test.failed" failureProperty="test.failed">
 			<sysproperty key="net.sourceforge.cobertura.datafile" file="build/coverage/cobertura.ser" />
 			<classpath>
 				<pathelement location="build/instrumented_classes" />
@@ -66,7 +77,7 @@
 		</junit>
 		<fail if="test.failed">There were failing unit tests.</fail>
 		<cobertura-report format="html" srcdir="src" destdir="build/coverage" datafile="build/coverage/cobertura.ser" />
-		<cobertura-check branchrate="100" linerate="100" />
+		<cobertura-check branchrate="100" linerate="100" datafile="build/coverage/cobertura.ser" />
 	</target>
 
 	<target name="jar">
