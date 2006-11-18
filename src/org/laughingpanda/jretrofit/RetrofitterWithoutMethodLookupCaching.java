@@ -8,16 +8,6 @@ import java.util.Arrays;
  * @author Ville Peurala
  */
 class RetrofitterWithoutMethodLookupCaching implements Retrofitter {
-    public Object complete(Object target, Class interfaceToImplement) {
-        // FIXME VP Not implemented.
-        throw new UnsupportedOperationException("complete");
-    }
-
-    public Object complete(Object target, Class[] interfacesToImplement) {
-        // FIXME VP Not implemented.
-        throw new UnsupportedOperationException("complete");
-    }
-
     public Object partial(Object target, Class interfaceToImplement) {
         return partial(target, new Class[] { interfaceToImplement });
     }
@@ -29,13 +19,11 @@ class RetrofitterWithoutMethodLookupCaching implements Retrofitter {
     }
 
     public Retrofitter withMethodLookupCaching() {
-        // FIXME VP Not implemented.
-        throw new UnsupportedOperationException("withMethodLookupCaching");
+        return new RetrofitterWithMethodLookupCaching();
     }
 
     public Retrofitter withoutMethodLookupCaching() {
-        // FIXME VP Not implemented.
-        throw new UnsupportedOperationException("withoutMethodLookupCaching");
+        return this;
     }
 
     private static Class[] allInterfacesToImplement(Object target,

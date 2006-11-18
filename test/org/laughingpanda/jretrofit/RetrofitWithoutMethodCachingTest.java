@@ -1,6 +1,5 @@
 package org.laughingpanda.jretrofit;
 
-import org.laughingpanda.jretrofit.Retrofit;
 import org.laughingpanda.jretrofit.fixture.Human;
 
 /**
@@ -8,6 +7,17 @@ import org.laughingpanda.jretrofit.fixture.Human;
  */
 public class RetrofitWithoutMethodCachingTest extends AbstractRetrofitTestCase {
     protected Human createHuman() {
-        return (Human) Retrofit.partial(person, Human.class);
+        return (Human) Retrofit.withoutMethodLookupCaching().partial(person,
+                Human.class);
+    }
+
+    public void testCallStaticHelpersForBetterTestCoverage() {
+        // Just calls some static helpers which delegate directly to other methods.
+        Object retrofittedWithStaticHelperAndSingleInterface = Retrofit
+                .partial(person, Human.class);
+        assertTrue(retrofittedWithStaticHelperAndSingleInterface instanceof Human);
+        Object retrofittedWithStaticHelperAndSingleInterfaceArray = Retrofit
+                .partial(person, new Class[] { Human.class });
+        assertTrue(retrofittedWithStaticHelperAndSingleInterfaceArray instanceof Human);
     }
 }
