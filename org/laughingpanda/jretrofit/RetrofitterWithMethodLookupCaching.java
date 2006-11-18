@@ -7,17 +7,7 @@ import java.util.Arrays;
 /**
  * @author Ville Peurala
  */
-public class RetrofitterWithMethodLookupCaching implements Retrofitter {
-    public Object complete(Object target, Class interfaceToImplement) {
-        // FIXME VP Not implemented.
-        throw new UnsupportedOperationException("complete");
-    }
-
-    public Object complete(Object target, Class[] interfacesToImplement) {
-        // FIXME VP Not implemented.
-        throw new UnsupportedOperationException("complete");
-    }
-
+class RetrofitterWithMethodLookupCaching implements Retrofitter {
     public Object partial(Object target, Class interfaceToImplement) {
         return partial(target, new Class[] { interfaceToImplement });
     }
