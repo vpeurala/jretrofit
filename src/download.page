@@ -8,4 +8,9 @@ Download the jar from here:
 
 "jretrofit-0.5.jar":jretrofit-0.5.jar
 
-Put it in your classpath and start hacking.
+Just put it in your classpath and start using it.
+See the tutorials on this website for usage examples.
+
+The source code is here:
+
+"http://svn.laughingpanda.org/svn/jretrofit/trunk/":http://svn.laughingpanda.org/svn/jretrofit/trunk/

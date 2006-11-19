@@ -1,7 +1,0 @@
----
-title: Usage
-inMenu: true
-lang: en
-orderInfo: 4
----
-Call Retrofit.partial() or Retrofit.complete().

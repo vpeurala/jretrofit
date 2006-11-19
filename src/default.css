@@ -376,3 +376,13 @@ bottom: 1.2em;
   margin: 6px;
   padding: 4px;
 }
+
+.failing_example {
+  color: #000000;
+  background-color: #FFEEEE;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+  margin: 6px;
+  padding: 4px;
+}
