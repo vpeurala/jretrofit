@@ -5,3 +5,8 @@ TODO
 -----------
 - add license to all source files
 - write more content to the website (a tutorial, examples etc.)
+
+19.11.2006
+----------
+- add license to all source files (DONE!)
+- write more content to the website (a tutorial, examples etc.)
