@@ -2,7 +2,7 @@
 title: FAQ
 inMenu: true
 lang: en
-orderInfo: 5
+orderInfo: 6
 ---
 *Q: Why would I use this library? I can write similar functionality myself by using dynamic proxies!*
 

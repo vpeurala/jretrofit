@@ -50,7 +50,8 @@
 			<div class="box">
 				<h4>Latest news</h4>
 				<div class="contentarea">
-					<p>JRetrofit 0.5 was released on 26.10.2006, including the handling of partial and complete interfaces.</p>
+					<p>JRetrofit 0.5, the initial public version, was released on 19.11.2006, including the handling of partial and complete retrofittings,
+					method lookup caching, tutorials and documentation. Download it <a href="jretrofit-0.5.jar">here</a>.</p>
 				</div>
 			</div>
 			<div>
