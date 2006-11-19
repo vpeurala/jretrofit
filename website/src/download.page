@@ -1,0 +1,11 @@
+---
+title: Download
+inMenu: true
+lang: en
+orderInfo: 3
+---
+Download the jar from here:
+
+"jretrofit-0.5.jar":jretrofit-0.5.jar
+
+Put it in your classpath and start hacking.

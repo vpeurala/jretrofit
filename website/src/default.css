@@ -365,3 +365,14 @@ position: absolute;
 right: 2.0em;
 bottom: 1.2em;
 }
+
+/* Ville Peurala's additions to the original design */
+.example {
+  color: #000000;
+  background-color: #FFFFEE;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+  margin: 6px;
+  padding: 4px;
+}

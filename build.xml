@@ -104,5 +104,6 @@ It is recommended that you use a JDK 1.3 JVM, because this project must work on 
 		<copy todir="build/website/Javadoc" overwrite="true">
 			<fileset dir="build/javadoc" />
 		</copy>
+		<copy file="build/lib/jretrofit-${version}.jar" todir="build/website" overwrite="true" />
 	</target>
 </project>

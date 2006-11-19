@@ -1,0 +1,24 @@
+---
+title: FAQ
+inMenu: true
+lang: en
+orderInfo: 5
+---
+*Q: Why would I use this library? I can write similar functionality myself by using dynamic proxies!*
+
+*A:* 
+Yeah, yeah. There certainly is nothing very difficult in this library. Any proficient programmer
+could have written it. 
+
+But I wrote this for a reason. I had a real need, in a real project (a big, expensive enterprise project)
+for functionality like this, and I did not find it anywhere. Although everybody knows how to do it,
+nobody had done it (or at least nobody had released it as open source). 
+So I wrote this and released it under liberal Apache 2.0 License, hoping that the next programmer 
+who stumbles upon a similar need in his/her project does not have to write it again from scratch.
+
+There are some additional advantages in JRetrofit, when compared to a &quot;reinventing the wheel&quot; solution:
+
+# It is well tested. It has 100% unit test coverage and it has been used in a real project.
+# It has quite good documentation (or at least I would like to think so). There are tutorials and examples,
+javadoc, and the source code itself is quite easy to read 
+(small classes, short methods, clean design, coherent formatting).
