@@ -21,6 +21,7 @@ care of the following things in your Ant installation:
    JRetrofit, in directory "lib") into your ANT_HOME/lib
    directory.
 
-4) For generating the website you must have webgen installed.
+4) For generating the website you must have webgen installed
+   (and for webgen you need Ruby).
    The configuration is for webgen 0.3.8: other versions
    of webgen are not guaranteed to work.
