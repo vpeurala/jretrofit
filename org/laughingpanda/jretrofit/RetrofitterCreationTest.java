@@ -18,7 +18,7 @@ package org.laughingpanda.jretrofit;
 import junit.framework.TestCase;
 
 /**
- * @author Ville Peurala / Reaktor Innovations
+ * @author Ville Peurala
  */
 public class RetrofitterCreationTest extends TestCase {
     public void testRetrofitterWithMethodLookupCachingReturnsANewNonCachingInstanceFromMethodWithoutLookupCaching() {
