@@ -20,3 +20,7 @@ care of the following things in your Ant installation:
 3) You also need to copy junit-3.8.2.jar (supplied with
    JRetrofit, in directory "lib") into your ANT_HOME/lib
    directory.
+
+4) For generating the website you must have webgen installed.
+   The configuration is for webgen 0.3.8: other versions
+   of webgen are not guaranteed to work.
