@@ -2,10 +2,17 @@
 <project name="JRetrofit" default="build">
 	<target name="build" depends="set_global_variables, clean_before, compile, test, jar, javadoc, generate_website" description="Build the project locally." />
 
-	<target name="publish" depends="check_remote_credentials, build, clean_remote, copy_jars, copy_website" description="Build and publish the project to paloalto.laughingpanda.org." />
+	<target name="publish" depends="set_global_variables, check_remote_credentials, build, clean_remote, copy_jars, copy_website" description="Build and publish the project to paloalto.laughingpanda.org." />
 
 	<target name="set_global_variables">
 		<property name="version" value="0.6" />
+		<property name="publication_server" value="paloalto.laughingpanda.org" />
+		<property name="publication_dir" value="/var/www/localhost/htdocs" />
+		<property name="publication_maven1_dir" value="${publication_dir}/maven/jretrofit/jars" />
+		<property name="publication_maven1_jar" value="${publication_maven1_dir}/jretrofit-${version}.jar" />
+		<property name="publication_maven2_dir" value="${publication_dir}/maven2/jretrofit/jretrofit" />
+		<property name="publication_maven2_jar" value="${publication_maven2_dir}/${version}/jretrofit-${version}.jar" />
+		<property name="publication_website" value="${publication_dir}/projects/jretrofit" />
 		<fail unless="jvm">
 Missing mandatory command line parameters.
 
@@ -137,14 +144,22 @@ For example:
 	</target>
 
 	<target name="clean_remote">
-
+		<property name="delete_maven1_jar_command" value="rm ${publication_maven1_jar}" />
+		<property name="delete_maven2_jar_command" value="rm ${publication_maven2_jar}" />
+		<property name="delete_website_dir_command" value="rm -r ${publication_website}" />
+		<property name="create_maven2_version_dir_command" value="mkdir ${publication_maven2_dir}/${version}" />
+		<property name="create_website_dir_command" value="mkdir ${publication_website}" />
+		<sshexec host="${publication_server}" trust="true" username="${username}" password="${password}" command="${delete_maven1_jar_command}; ${delete_maven2_jar_command}; ${delete_website_dir_command}; ${create_maven2_version_dir_command}; ${create_website_dir_command};" />
 	</target>
 
 	<target name="copy_jars">
-		<echo message="TODO: copy_jars not implemented" />
+		<scp todir="${username}:${password}@${publication_server}:${publication_maven1_dir}" file="build/lib/jretrofit-${version}.jar" trust="true" />
+		<scp todir="${username}:${password}@${publication_server}:${publication_maven2_dir}/${version}" file="build/lib/jretrofit-${version}.jar" trust="true" />
 	</target>
 
 	<target name="copy_website">
-		<echo message="TODO: copy_website not implemented" />
+		<scp todir="${username}:${password}@${publication_server}:${publication_website}" trust="true">
+			<fileset dir="build/website" excludes="foo" />
+		</scp>
 	</target>
 </project>
