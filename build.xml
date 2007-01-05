@@ -3,7 +3,7 @@
 	<target name="all" depends="set_global_variables, clean_before, compile, test, jar, javadoc, generate_website" />
 
 	<target name="set_global_variables">
-		<property name="version" value="0.5" />
+		<property name="version" value="0.6" />
 		<fail unless="jvm">
 
 You must give property 'jvm' on the command line when running the build. 
