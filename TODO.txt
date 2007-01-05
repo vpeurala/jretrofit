@@ -10,3 +10,9 @@ TODO
 ----------
 - add license to all source files (DONE!)
 - write more content to the website (a tutorial, examples etc.)
+
+5.1.2007
+--------
+- write more content to the website (a tutorial, examples etc.) (DONE!)
+- use setAccessible(true) to access private members if needed
+
