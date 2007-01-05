@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="JRetrofit" default="all">
-	<target name="all" depends="set_global_variables, clean_before, compile, test, jar, javadoc, generate_website" />
+<project name="JRetrofit" default="build">
+	<target name="build" depends="set_global_variables, clean_before, compile, test, jar, javadoc, generate_website" description="Build the project locally." />
+
+	<target name="publish" depends="check_remote_credentials, build, clean_remote, copy_jars, copy_website" description="Build and publish the project to paloalto.laughingpanda.org." />
 
 	<target name="set_global_variables">
 		<property name="version" value="0.6" />
 		<fail unless="jvm">
+Missing mandatory command line parameters.
 
-You must give property 'jvm' on the command line when running the build. 
-The value of the property must be a 'java' executable installed on your machine.
+You must give property 'jvm' on the command line
+when running the build.
+The value of the property must be a 'java' executable 
+installed on your machine.
 
-For example: 
-  ant -Djvm=/opt/jdk1.3.1_19/bin/java (on Linux), or 
+For example:
+  ant -Djvm=/opt/jdk1.3.1_19/bin/java (on Linux), or
   ant -Djvm=C:/jdk1.3.1_19/bin/java (on Windows).
-			
-It is recommended that you use a JDK 1.3 JVM, because this project must work on 1.3.			
+
+It is recommended that you use a JDK 1.3 JVM,
+because this project must work on 1.3.
 		</fail>
 	</target>
 
@@ -105,5 +111,40 @@ It is recommended that you use a JDK 1.3 JVM, because this project must work on 
 			<fileset dir="build/javadoc" />
 		</copy>
 		<copy file="build/lib/jretrofit-${version}.jar" todir="build/website" overwrite="true" />
+	</target>
+
+	<target name="check_remote_credentials">
+		<fail unless="username">
+Missing mandatory command line parameters.
+
+You must give a valid username and password 
+to server paloalto.laughingpanda.org
+on the command line if you want to publish this project.
+
+For example:
+  ant -Dusername=foo -Dpassword=bar
+		</fail>
+		<fail unless="password">
+Missing mandatory command line parameters.
+
+You must give a valid username and password 
+to server paloalto.laughingpanda.org
+on the command line if you want to publish this project.
+
+For example:
+  ant -Dusername=foo -Dpassword=bar
+		</fail>
+	</target>
+
+	<target name="clean_remote">
+
+	</target>
+
+	<target name="copy_jars">
+		<echo message="TODO: copy_jars not implemented" />
+	</target>
+
+	<target name="copy_website">
+		<echo message="TODO: copy_website not implemented" />
 	</target>
 </project>
