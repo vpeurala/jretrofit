@@ -18,7 +18,7 @@ package org.laughingpanda.jretrofit;
 import java.lang.reflect.Method;
 
 /**
- * @author Ville Peurala / Reaktor Innovations
+ * @author Ville Peurala
  */
 class NonCachingMethodLookupHelper extends AbstractMethodLookupHelper {
     public NonCachingMethodLookupHelper(Object target) {
