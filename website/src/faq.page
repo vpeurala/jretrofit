@@ -4,6 +4,11 @@ inMenu: true
 lang: en
 orderInfo: 6
 ---
+*Q: Which version of Java does it require?*
+
+*A:*
+Java 1.3, because versions prior to that don't have dynamic proxies.
+
 *Q: Why would I use this library? I can write similar functionality myself by using dynamic proxies!*
 
 *A:* 
