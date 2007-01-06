@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.laughingpanda.jretrofit;
+package org.laughingpanda.jretrofit.basic;
 
+import org.laughingpanda.jretrofit.Retrofit;
+import org.laughingpanda.jretrofit.Retrofitter;
 import org.laughingpanda.jretrofit.fixture.CompleteHuman;
 import org.laughingpanda.jretrofit.fixture.Human;
 import org.laughingpanda.jretrofit.fixture.Person;

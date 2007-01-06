@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.laughingpanda.jretrofit;
+package org.laughingpanda.jretrofit.basic;
 
 import java.awt.Color;
 import java.lang.reflect.Method;
@@ -26,6 +26,9 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.laughingpanda.jretrofit.AllMethodsNotImplementedException;
+import org.laughingpanda.jretrofit.Retrofit;
+import org.laughingpanda.jretrofit.Retrofitter;
 import org.laughingpanda.jretrofit.fixture.AngryException;
 import org.laughingpanda.jretrofit.fixture.City;
 import org.laughingpanda.jretrofit.fixture.CompleteHuman;
@@ -198,6 +201,19 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
             fail();
         } catch (NullPointerException expected) {
             assertEquals("FOOOOOOOOO!!!!!!!!!!!!", expected.getMessage());
+        }
+    }
+
+    public final void testRetrofittingCanBeDoneWithPrivateStubs()
+            throws Exception {
+        HumanStub stub = new HumanStub();
+        Human fromPrivateStub = (Human) Retrofit.partial(stub, Human.class);
+        assertEquals("Pertti", fromPrivateStub.getName());
+    }
+
+    private static class HumanStub {
+        String getName() {
+            return "Pertti";
         }
     }
 }

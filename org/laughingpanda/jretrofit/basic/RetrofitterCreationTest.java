@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.laughingpanda.jretrofit;
+package org.laughingpanda.jretrofit.basic;
 
 import junit.framework.TestCase;
+
+import org.laughingpanda.jretrofit.Retrofit;
+import org.laughingpanda.jretrofit.Retrofitter;
+import org.laughingpanda.jretrofit.RetrofitterWithMethodLookupCaching;
+import org.laughingpanda.jretrofit.RetrofitterWithoutMethodLookupCaching;
 
 /**
  * @author Ville Peurala
