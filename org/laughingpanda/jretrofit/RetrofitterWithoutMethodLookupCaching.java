@@ -16,9 +16,13 @@
 package org.laughingpanda.jretrofit;
 
 /**
+ * A {@link Retrofitter} implementation which does not cache method lookup.
+ * This is quite slow, as every method call will go through a lot of reflection
+ * to deduce the right method to call. 
+ * 
  * @author Ville Peurala
  */
-class RetrofitterWithoutMethodLookupCaching extends AbstractRetrofitter {
+public class RetrofitterWithoutMethodLookupCaching extends AbstractRetrofitter {
     protected AbstractMethodLookupHelper createMethodLookupHelper(Object target) {
         return new NonCachingMethodLookupHelper(target);
     }

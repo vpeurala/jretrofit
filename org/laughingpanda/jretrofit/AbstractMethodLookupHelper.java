@@ -16,6 +16,8 @@
 package org.laughingpanda.jretrofit;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author Ville Peurala
@@ -27,7 +29,29 @@ abstract class AbstractMethodLookupHelper {
         this.target = target;
     }
 
-    protected boolean areMethodsCompatible(Method requestedMethod,
+    protected Method findCompatibleMethod(Method interfaceMethod) {
+        Method[] publicMethods = getTarget().getClass().getMethods();
+        Method[] declaredMethods = getTarget().getClass().getDeclaredMethods();
+        ArrayList allMethods = new ArrayList();
+        allMethods.addAll(Arrays.asList(publicMethods));
+        allMethods.addAll(Arrays.asList(declaredMethods));
+        Method[] targetMethods = (Method[]) allMethods
+                .toArray(new Method[allMethods.size()]);
+        for (int i = 0; i < targetMethods.length; i++) {
+            Method currentMethod = targetMethods[i];
+            if (areMethodsCompatible(interfaceMethod, currentMethod)) {
+                if (!currentMethod.isAccessible()) {
+                    currentMethod.setAccessible(true);
+                }
+                return currentMethod;
+            }
+        }
+        throw new UnsupportedOperationException("Target object '" + getTarget()
+                + "' does not have a method which is compatible with '"
+                + interfaceMethod + "'!");
+    }
+
+    private boolean areMethodsCompatible(Method requestedMethod,
             Method candidateMethod) {
         return areNamesCompatible(requestedMethod, candidateMethod)
                 && areParametersCompatible(requestedMethod, candidateMethod)
