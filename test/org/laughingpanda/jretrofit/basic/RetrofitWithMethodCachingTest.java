@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.laughingpanda.jretrofit;
+package org.laughingpanda.jretrofit.basic;
 
 import java.lang.reflect.Constructor;
+
+import org.laughingpanda.jretrofit.Retrofit;
+import org.laughingpanda.jretrofit.Retrofitter;
 
 /**
  * @author Ville Peurala

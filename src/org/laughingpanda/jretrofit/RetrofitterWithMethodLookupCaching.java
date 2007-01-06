@@ -16,9 +16,13 @@
 package org.laughingpanda.jretrofit;
 
 /**
+ * A {@link Retrofitter} implementation which caches method lookup.
+ * This is an order of magnitude faster then {@link RetrofitterWithoutMethodLookupCaching}
+ * when doing repeated calls to a retrofitted object.
+ * 
  * @author Ville Peurala
  */
-class RetrofitterWithMethodLookupCaching extends AbstractRetrofitter {
+public class RetrofitterWithMethodLookupCaching extends AbstractRetrofitter {
     protected AbstractMethodLookupHelper createMethodLookupHelper(Object target) {
         return new CachingMethodLookupHelper(target);
     }

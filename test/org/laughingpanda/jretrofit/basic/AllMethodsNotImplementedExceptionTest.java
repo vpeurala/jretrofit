@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.laughingpanda.jretrofit;
+package org.laughingpanda.jretrofit.basic;
 
 import java.lang.reflect.Method;
 
 import junit.framework.TestCase;
+
+import org.laughingpanda.jretrofit.AllMethodsNotImplementedException;
 
 /**
  * @author Ville Peurala
