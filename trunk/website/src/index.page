@@ -1,0 +1,46 @@
+---
+title: About
+inMenu: true
+lang: en
+orderInfo: 1
+---
+JRetrofit is a library for adding interfaces to existing classes at runtime.
+
+It is implemented with dynamic proxies.
+
+Here is a really simple example:
+
+You have an interface like this:
+
+<pre class="example"><code>public interface Nameable {
+    public String getName();
+}
+</code></pre>
+
+and a class like this:
+
+<pre class="example"><code>/**
+ * Note that this class does not implement any interfaces.
+ */
+public class LegacyClass {
+    public String getName() {
+        return "foo!";
+    }
+}
+</code></pre>
+
+You would like to call all classes with method <code>getName()</code> polymorphically,
+but you cannot, for some reason or another, change class <code>LegacyClass</code> in any way
+(in other words, you cannot add &quot;<code>implements Nameable</code>&quot; to its class declaration).
+Perhaps it's part of some really important legacy package which your company politics don't
+allow any changes to, or maybe it's part of some external library that you cannot fork. Or maybe
+you don't have access to its source code at all.
+
+JRetrofit to the rescue! You can make <code>LegacyClass</code> implement <code>Nameable</code> at
+runtime, like this:
+
+<pre class="example"><code>LegacyClass legacy = new LegacyClass();
+Nameable retrofittedLegacy = (Nameable) Retrofit.partial(legacy, Nameable.class);
+// And now you can use retrofittedLegacy just like 
+// any other class which implements Nameable!
+</code></pre>

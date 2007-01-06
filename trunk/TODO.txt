@@ -1,0 +1,20 @@
+TODO
+----
+
+18.11.2006:
+-----------
+- add license to all source files
+- write more content to the website (a tutorial, examples etc.)
+
+19.11.2006
+----------
+- add license to all source files (DONE!)
+- write more content to the website (a tutorial, examples etc.)
+
+5.1.2007
+--------
+- write more content to the website (a tutorial, examples etc.) (DONE!)
+- use setAccessible(true) to access private members if needed
+- write a "publish" Ant target which:
+-- copies new jars to maven repositories and download directory on paloalto
+-- publishes the website

@@ -1,0 +1,27 @@
+BUILDING JRETROFIT
+------------------
+
+If you want to build JRetrofit yourself, you need to take
+care of the following things in your Ant installation:
+
+1) You need apache-ant-1.7.0. Older versions will NOT work -
+   their SSH support is not sufficient for "publish" target
+   and its subtargets, which use <sshexec> and <scp>.
+   Newer versions might work, but this is not guaranteed.
+   
+2) VERY IMPORTANT: You need to copy jsch-0.1.29.jar (supplied
+   with JRetrofit, in directory "lib") into your
+   ANT_HOME/lib directory. VERSION 0.1.29 IS THE ONLY ONE
+   WHICH WORKS. Newer versions of jsch (at least 0.1.30) 
+   contain a bug which cause the scp transfer in this build
+   to hang. Check that you don't have any other versions
+   of jsch in your ANT_HOME/lib or global CLASSPATH.
+   
+3) You also need to copy junit-3.8.2.jar (supplied with
+   JRetrofit, in directory "lib") into your ANT_HOME/lib
+   directory.
+
+4) For generating the website you must have webgen installed
+   (and for webgen you need Ruby).
+   The configuration is for webgen 0.3.8: other versions
+   of webgen are not guaranteed to work.

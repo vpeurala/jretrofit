@@ -1,0 +1,14 @@
+---
+title: Author
+inMenu: true
+lang: en
+orderInfo: 9
+---
+JRetrofit is written by Ville Peurala (that's me). I live in Helsinki, Finland and work for 
+"Reaktor Innovations":http://www.ri.fi. If you like JRetrofit, you might also
+be interested in my other open source projects (all released under liberal Apache 2.0 License,
+so you can use them practically anywhere):
+
+# "Code Police":http://www.laughingpanda.org/mediawiki/index.php/Code_Police
+# "typedgroup":http://typedgroup.sourceforge.net/
+
