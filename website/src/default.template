@@ -51,8 +51,15 @@
 				<h4>Latest news</h4>
 				<div class="contentarea">
 				    <hr />
-				    <p>JRetrofit 0.6 was released on 6.1.2007. New features: private inner classes can now be used as stubs.
-				    Download it <a href="jretrofit-0.6.jar">here</a>.</p>
+				    <p>JRetrofit 0.6 was released on 6.1.2007. New features:
+				    <ul>
+				      <li>Private inner classes can now be used as stubs.</li>
+				      <li>Protected and package private methods can be used to "implement" a public method
+				          (this breaks Java inheritance rules, but it is sometimes very useful 
+				          when dealing with legacy stuff).</li>
+				    </ul>
+				    Download it <a href="jretrofit-0.6.jar">here</a>.
+				    </p>
 				    <hr />
 					<p>JRetrofit 0.5, the initial public version, was released on 19.11.2006, including the handling of partial and complete retrofittings,
 					method lookup caching, tutorials and documentation.</p>
