@@ -10,7 +10,7 @@ orderInfo: 6
 Yeah, yeah. There certainly is nothing very difficult in this library. Any proficient programmer
 could have written it. 
 
-But I wrote this for a reason. I had a real need, in a real project (a big, expensive enterprise project)
+But I wrote this for a reason. I had a real need, in a real project (a big, expensive enterprise(y) project)
 for functionality like this, and I did not find it anywhere. Although everybody knows how to do it,
 nobody had done it (or at least nobody had released it as open source). 
 So I wrote this and released it under liberal Apache 2.0 License, hoping that the next programmer 
