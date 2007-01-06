@@ -98,9 +98,7 @@ because this project must work on 1.3.
 	</target>
 
 	<target name="javadoc">
-		<javadoc destdir="build/javadoc" Public="true">
-			<fileset dir="src" defaultexcludes="yes" />
-		</javadoc>
+		<javadoc destdir="build/javadoc" sourcepath="src" public="true" />
 	</target>
 
 	<target name="generate_website">
@@ -159,7 +157,7 @@ For example:
 
 	<target name="copy_website">
 		<scp todir="${username}:${password}@${publication_server}:${publication_website}" trust="true">
-			<fileset dir="build/website" excludes="foo" />
+			<fileset dir="build/website" />
 		</scp>
 	</target>
 </project>
