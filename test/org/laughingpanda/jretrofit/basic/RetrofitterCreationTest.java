@@ -15,10 +15,6 @@
  */
 package org.laughingpanda.jretrofit.basic;
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
 import junit.framework.TestCase;
 
 import org.laughingpanda.jretrofit.Retrofit;
@@ -28,7 +24,6 @@ import org.laughingpanda.jretrofit.RetrofitterWithoutMethodLookupCaching;
 
 /**
  * @author Ville Peurala
- * @author Antti Mattila
  */
 public class RetrofitterCreationTest extends TestCase {
     public void testRetrofitterWithMethodLookupCachingReturnsANewNonCachingInstanceFromMethodWithoutLookupCaching() {
@@ -61,11 +56,5 @@ public class RetrofitterCreationTest extends TestCase {
     public void testStaticClassRetrofitCanCreateNonCachingRetrofitter() {
         Object created = Retrofit.withoutMethodLookupCaching();
         assertTrue(created instanceof RetrofitterWithoutMethodLookupCaching);
-    }
-
-    public void testRetrofitCanSerializeObjects() throws Exception {
-        ObjectOutputStream oos = new ObjectOutputStream(new ByteArrayOutputStream());
-        oos.writeObject(Retrofit.complete(new Object(), Serializable.class));
-        oos.close();
     }
 }

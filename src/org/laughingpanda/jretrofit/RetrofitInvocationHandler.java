@@ -15,7 +15,6 @@
  */
 package org.laughingpanda.jretrofit;
 
-import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,8 +22,7 @@ import java.lang.reflect.Method;
 /**
  * @author Ville Peurala
  */
-final class RetrofitInvocationHandler implements InvocationHandler, Serializable {
-    private static final long serialVersionUID = -9014381441174505585L;
+final class RetrofitInvocationHandler implements InvocationHandler {
     private final AbstractMethodLookupHelper helper;
 
     public RetrofitInvocationHandler(AbstractMethodLookupHelper helper) {
