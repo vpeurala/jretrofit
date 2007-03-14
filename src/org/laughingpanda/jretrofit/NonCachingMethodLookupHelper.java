@@ -15,12 +15,15 @@
  */
 package org.laughingpanda.jretrofit;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
  * @author Ville Peurala
  */
-class NonCachingMethodLookupHelper extends AbstractMethodLookupHelper {
+class NonCachingMethodLookupHelper extends AbstractMethodLookupHelper implements Serializable {
+    private static final long serialVersionUID = -3465871084759001456L;
+
     public NonCachingMethodLookupHelper(Object target) {
         super(target);
     }
