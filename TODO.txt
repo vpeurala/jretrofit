@@ -18,3 +18,7 @@ TODO
 - write a "publish" Ant target which:
 -- copies new jars to maven repositories and download directory on paloalto
 -- publishes the website
+
+14.3.2007
+---------
+- Add Antti Mattila to the website as an author.
