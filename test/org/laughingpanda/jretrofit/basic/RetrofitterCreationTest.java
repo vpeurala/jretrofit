@@ -65,7 +65,7 @@ public class RetrofitterCreationTest extends TestCase {
 
     public void testRetrofitCanSerializeObjects() throws Exception {
         ObjectOutputStream oos = new ObjectOutputStream(new ByteArrayOutputStream());
-        oos.writeObject(Retrofit.complete(new RetrofitterCreationTest(), Serializable.class));
+        oos.writeObject(Retrofit.complete(new Object(), Serializable.class));
         oos.close();
     }
 }
