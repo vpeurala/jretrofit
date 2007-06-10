@@ -19,6 +19,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * @author Ville Peurala
@@ -32,6 +33,22 @@ abstract class AbstractRetrofitter implements Retrofitter {
                 .getInterfaces()));
         return (Class[]) allInterfacesToImplement
                 .toArray(new Class[allInterfacesToImplement.size()]);
+    }
+
+    private void checkParameters(Object target, Class[] interfacesToImplement) {
+        if (target == null) {
+            throw new IllegalArgumentException("Target object cannot be null!");
+        }
+        if (interfacesToImplement == null) {
+            throw new IllegalArgumentException(
+                    "Array of interfaces to implement cannot be null!");
+        }
+        for (int i = 0; i < interfacesToImplement.length; i++) {
+            if (interfacesToImplement[i] == null) {
+                throw new IllegalArgumentException(
+                        "Interface to implement cannot be null!");
+            }
+        }
     }
 
     private void checkThatAllRequiredMethodsAreImplemented(
@@ -65,6 +82,7 @@ abstract class AbstractRetrofitter implements Retrofitter {
     }
 
     public final Object complete(Object target, Class[] interfacesToImplement) {
+        checkParameters(target, interfacesToImplement);
         AbstractMethodLookupHelper helper = createMethodLookupHelper(target);
         checkThatAllRequiredMethodsAreImplemented(interfacesToImplement, helper);
         return createProxy(target, interfacesToImplement, helper);
@@ -75,15 +93,42 @@ abstract class AbstractRetrofitter implements Retrofitter {
 
     private Object createProxy(Object target, Class[] interfacesToImplement,
             AbstractMethodLookupHelper methodLookupHelper) {
-        return Proxy.newProxyInstance(target.getClass().getClassLoader(),
-                allInterfacesToImplement(target, interfacesToImplement),
-                new RetrofitInvocationHandler(methodLookupHelper));
+        ClassLoader[] candidateClassLoaders = getCandidateClassLoaders(target,
+                interfacesToImplement);
+        for (int i = 0; i < candidateClassLoaders.length; i++) {
+            try {
+                return Proxy
+                        .newProxyInstance(candidateClassLoaders[i],
+                                allInterfacesToImplement(target,
+                                        interfacesToImplement),
+                                new RetrofitInvocationHandler(
+                                        methodLookupHelper));
+            } catch (IllegalArgumentException e) {
+                // The classloader used cannot load all the required classes,
+                // try the next one...
+            }
+        }
+        // Classloaders exhausted... throw an exception.
+        throw new RuntimeException(
+                "Could not find a suitable classloader for retrofitting!");
+    }
+
+    private ClassLoader[] getCandidateClassLoaders(Object target,
+            Class[] interfacesToImplement) {
+        HashSet classLoaders = new HashSet();
+        classLoaders.add(target.getClass().getClassLoader());
+        for (int i = 0; i < interfacesToImplement.length; i++) {
+            classLoaders.add(interfacesToImplement[i].getClassLoader());
+        }
+        return (ClassLoader[]) classLoaders
+                .toArray(new ClassLoader[classLoaders.size()]);
     }
 
     public final Object partial(Object target, Class interfaceToImplement) {
         return partial(target, new Class[] { interfaceToImplement });
     }
     public final Object partial(Object target, Class[] interfacesToImplement) {
+        checkParameters(target, interfacesToImplement);
         return createProxy(target, interfacesToImplement,
                 createMethodLookupHelper(target));
     }

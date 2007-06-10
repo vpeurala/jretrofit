@@ -47,3 +47,28 @@ timeFor100000Retrofittings: 3035
 timeFor100000DirectGetNameCalls: 0
 timeFor100000RetrofittedGetNameCalls: 290
 
+10.6.2007, before adding the feature where different classloaders are attempted when creating the proxy:
+--------------------------------------------------------------------------------------------------------
+timeFor100000Creations: 8
+timeFor100000PartialRetrofittingsWithoutCache: 2809
+timeFor100000PartialRetrofittingsWithCache: 2708
+timeFor1000CompleteRetrofittingsWithoutCache: 686
+timeFor1000CompleteRetrofittingsWithCache: 757
+timeFor100000DirectGetNameCalls: 1
+timeFor100000PartiallyRetrofittedGetNameCallsWithoutCache: 10525
+timeFor100000PartiallyRetrofittedGetNameCallsWithCache: 272
+timeFor100000CompletelyRetrofittedGetNameCallsWithoutCache: 8992
+timeFor100000CompletelyRetrofittedGetNameCallsWithCache: 277
+
+10.6.2007, after adding the attempting of different classloaders:
+-----------------------------------------------------------------
+timeFor100000Creations: 8
+timeFor100000PartialRetrofittingsWithoutCache: 2897
+timeFor100000PartialRetrofittingsWithCache: 2926
+timeFor1000CompleteRetrofittingsWithoutCache: 707
+timeFor1000CompleteRetrofittingsWithCache: 688
+timeFor100000DirectGetNameCalls: 1
+timeFor100000PartiallyRetrofittedGetNameCallsWithoutCache: 11881
+timeFor100000PartiallyRetrofittedGetNameCallsWithCache: 294
+timeFor100000CompletelyRetrofittedGetNameCallsWithoutCache: 9654
+timeFor100000CompletelyRetrofittedGetNameCallsWithCache: 297

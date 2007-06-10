@@ -32,6 +32,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.apache.log4j.Appender;
 import org.laughingpanda.jretrofit.AllMethodsNotImplementedException;
 import org.laughingpanda.jretrofit.Retrofit;
 import org.laughingpanda.jretrofit.Retrofitter;
@@ -225,6 +226,73 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
         byte[] serialized = serialize(proxy);
         Human deserialized = (Human) deserialize(serialized);
         assertEquals("Pena", deserialized.getName());
+    }
+
+    public final void testRetrofittingCanBeDoneWhenStubIsFromAHigherClassloaderThanInterfaceToImplement()
+            throws Exception {
+        createRetrofitter().partial(new Object(), Appender.class);
+    }
+
+    public final void testRetrofittingCanBeDoneWhenStubIsFromALowerClassloaderThanInterfaceToImplement() {
+        createRetrofitter().partial(new HumanStub(), Comparable.class);
+    }
+
+    public final void testCannotPartiallyRetrofitANullTargetObject() {
+        try {
+            createRetrofitter().partial(null, Comparable.class);
+            fail();
+        } catch (IllegalArgumentException expected) {
+            assertEquals("Target object cannot be null!", expected.getMessage());
+        }
+    }
+
+    public final void testCannotPartiallyRetrofitAnObjectWithANullInterface() {
+        try {
+            createRetrofitter().partial(new Object(), (Class) null);
+            fail();
+        } catch (IllegalArgumentException expected) {
+            assertEquals("Interface to implement cannot be null!", expected
+                    .getMessage());
+        }
+    }
+
+    public final void testCannotPartiallyRetrofitAnObjectWithANullArrayOfInterfaces() {
+        try {
+            createRetrofitter().partial(new Object(), (Class[]) null);
+            fail();
+        } catch (IllegalArgumentException expected) {
+            assertEquals("Array of interfaces to implement cannot be null!",
+                    expected.getMessage());
+        }
+    }
+
+    public final void testCannotCompletelyRetrofitANullTargetObject() {
+        try {
+            createRetrofitter().complete(null, Comparable.class);
+            fail();
+        } catch (IllegalArgumentException expected) {
+            assertEquals("Target object cannot be null!", expected.getMessage());
+        }
+    }
+
+    public final void testCannotCompletelyRetrofitAnObjectWithANullInterface() {
+        try {
+            createRetrofitter().complete(new Object(), (Class) null);
+            fail();
+        } catch (IllegalArgumentException expected) {
+            assertEquals("Interface to implement cannot be null!", expected
+                    .getMessage());
+        }
+    }
+
+    public final void testCannotCompletelyRetrofitAnObjectWithANullArrayOfInterfaces() {
+        try {
+            createRetrofitter().complete(new Object(), (Class[]) null);
+            fail();
+        } catch (IllegalArgumentException expected) {
+            assertEquals("Array of interfaces to implement cannot be null!",
+                    expected.getMessage());
+        }
     }
 
     private byte[] serialize(Object object) throws IOException {
