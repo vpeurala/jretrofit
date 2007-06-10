@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 
 /**
  * @author Ville Peurala
@@ -95,6 +95,7 @@ abstract class AbstractRetrofitter implements Retrofitter {
             AbstractMethodLookupHelper methodLookupHelper) {
         ClassLoader[] candidateClassLoaders = getCandidateClassLoaders(target,
                 interfacesToImplement);
+        List exceptions = new ArrayList();
         for (int i = 0; i < candidateClassLoaders.length; i++) {
             try {
                 return Proxy
@@ -105,23 +106,24 @@ abstract class AbstractRetrofitter implements Retrofitter {
                                         methodLookupHelper));
             } catch (IllegalArgumentException e) {
                 // The classloader used cannot load all the required classes,
-                // try the next one...
+                // store the exception and try the next one...
+                exceptions.add(e);
             }
         }
         // Classloaders exhausted... throw an exception.
         throw new RuntimeException(
-                "Could not find a suitable classloader for retrofitting!");
+                "Could not find a suitable classloader for retrofitting! Exceptions when attempting to create proxy: "
+                        + exceptions);
     }
 
     private ClassLoader[] getCandidateClassLoaders(Object target,
             Class[] interfacesToImplement) {
-        HashSet classLoaders = new HashSet();
-        classLoaders.add(target.getClass().getClassLoader());
+        ClassLoader[] classLoaders = new ClassLoader[interfacesToImplement.length + 1];
+        classLoaders[0] = target.getClass().getClassLoader();
         for (int i = 0; i < interfacesToImplement.length; i++) {
-            classLoaders.add(interfacesToImplement[i].getClassLoader());
+            classLoaders[i + 1] = interfacesToImplement[i].getClassLoader();
         }
-        return (ClassLoader[]) classLoaders
-                .toArray(new ClassLoader[classLoaders.size()]);
+        return classLoaders;
     }
 
     public final Object partial(Object target, Class interfaceToImplement) {

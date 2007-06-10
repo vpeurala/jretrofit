@@ -295,6 +295,22 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
         }
     }
 
+    public final void testCannotRetrofitIfNoSuitableClassloaderExists()
+            throws Exception {
+        try {
+            createRetrofitter()
+                    .partial(
+                            new Object(),
+                            new EvilClassLoader()
+                                    .loadClass("org.laughingpanda.jretrofit.fixture.EvilFoo"));
+            fail();
+        } catch (RuntimeException expected) {
+            String message = expected.getMessage();
+            assertTrue(message
+                    .startsWith("Could not find a suitable classloader for retrofitting!"));
+        }
+    }
+
     private byte[] serialize(Object object) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(
