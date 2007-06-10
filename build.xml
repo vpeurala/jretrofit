@@ -5,7 +5,7 @@
 	<target name="publish" depends="set_global_variables, check_remote_credentials, build, clean_remote, copy_jars, copy_website" description="Build and publish the project to paloalto.laughingpanda.org." />
 
 	<target name="set_global_variables">
-		<property name="version" value="0.6" />
+		<property name="version" value="1.0rc1" />
 		<property name="publication_server" value="paloalto.laughingpanda.org" />
 		<property name="publication_dir" value="/var/www/localhost/htdocs" />
 		<property name="publication_maven1_dir" value="${publication_dir}/maven/jretrofit/jars" />
@@ -104,7 +104,7 @@ because this project must work on 1.3.
 	<target name="generate_website">
 		<exec dir="website" executable="webgen.cmd" os="Windows 2000, Windows 95, Windows 98, Windows NT, Windows XP">
 		</exec>
-		<exec dir="website" executable="webgen.sh" os="AIX, Digital Unix, FreeBSD, HP UX, Irix, Linux, Mac OS, MPE/iX, Netware 4.11, OS/2, Solaris">
+		<exec dir="website" executable="webgen" os="AIX, Digital Unix, FreeBSD, HP UX, Irix, Linux, Mac OS, MPE/iX, Netware 4.11, OS/2, Solaris">
 		</exec>
 		<move todir="build/website">
 			<fileset dir="website/output" />

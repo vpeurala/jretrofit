@@ -24,7 +24,7 @@
 	<div id="headerpic"></div>
 	
 	<div id="menu">
-		{menu: }
+		{menu: vertical}
 	</div>
 	<div id="menubottom"></div>
 	<div id="content">
@@ -38,7 +38,7 @@
 						<!--
 						<div class="details"></div>
 						-->
-						{content: }
+						{block: }
 					</div>
 				</div>
 				<!-- Primary content area end -->
