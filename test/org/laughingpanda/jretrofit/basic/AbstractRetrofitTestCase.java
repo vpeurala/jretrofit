@@ -16,6 +16,12 @@
 package org.laughingpanda.jretrofit.basic;
 
 import java.awt.Color;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -207,8 +213,46 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     public final void testRetrofittingCanBeDoneWithPrivateStubs()
             throws Exception {
         HumanStub stub = new HumanStub();
-        Human fromPrivateStub = (Human) Retrofit.partial(stub, Human.class);
+        Human fromPrivateStub = (Human) createRetrofitter().partial(stub,
+                Human.class);
         assertEquals("Pertti", fromPrivateStub.getName());
+    }
+
+    public final void testProxiesCanBeSerialized() throws Exception {
+        Serializable wrappedObject = new SerializableStub();
+        Human proxy = (Human) createRetrofitter().partial(wrappedObject,
+                Human.class);
+        byte[] serialized = serialize(proxy);
+        Human deserialized = (Human) deserialize(serialized);
+        assertEquals("Pena", deserialized.getName());
+    }
+
+    private byte[] serialize(Object object) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+                byteArrayOutputStream);
+        objectOutputStream.writeObject(object);
+        objectOutputStream.flush();
+        objectOutputStream.close();
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private Object deserialize(byte[] serialized) throws IOException,
+            ClassNotFoundException {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
+                serialized);
+        ObjectInputStream objectInputStream = new ObjectInputStream(
+                byteArrayInputStream);
+        Object deserialized = objectInputStream.readObject();
+        objectInputStream.close();
+        return deserialized;
+    }
+
+    private static class SerializableStub implements Serializable {
+        private static final long serialVersionUID = 1L;
+        public String getName() {
+            return "Pena";
+        }
     }
 
     private static class HumanStub {

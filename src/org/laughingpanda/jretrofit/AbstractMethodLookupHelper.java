@@ -15,6 +15,7 @@
  */
 package org.laughingpanda.jretrofit;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ import java.util.Arrays;
 /**
  * @author Ville Peurala
  */
-abstract class AbstractMethodLookupHelper {
+abstract class AbstractMethodLookupHelper implements Serializable {
     private Object target;
 
     protected AbstractMethodLookupHelper(Object target) {

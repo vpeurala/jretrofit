@@ -15,13 +15,16 @@
  */
 package org.laughingpanda.jretrofit;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
 /**
  * @author Ville Peurala
  */
-class CachingMethodLookupHelper extends AbstractMethodLookupHelper {
+class CachingMethodLookupHelper extends AbstractMethodLookupHelper implements
+        Serializable {
+    private static final long serialVersionUID = 1977L;
     private final HashMap methodCache = new HashMap();
 
     protected CachingMethodLookupHelper(Object target) {
