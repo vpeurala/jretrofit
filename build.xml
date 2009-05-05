@@ -5,7 +5,7 @@
 	<target name="publish" depends="set_global_variables, check_remote_credentials, build, clean_remote, copy_jars, copy_website" description="Build and publish the project to paloalto.laughingpanda.org." />
 
 	<target name="set_global_variables">
-		<property name="version" value="1.0rc1" />
+		<property name="version" value="1.0" />
 		<property name="publication_server" value="paloalto.laughingpanda.org" />
 		<property name="publication_dir" value="/var/www/localhost/htdocs" />
 		<property name="publication_maven1_dir" value="${publication_dir}/maven/jretrofit/jars" />
