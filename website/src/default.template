@@ -51,6 +51,9 @@
 				<h4>Latest news</h4>
 				<div class="contentarea">
 				    <hr />
+				    <p>JRetrofit 1.0 final version was released on 5.5.2009. There were no changes from 1.0rc1.</p>
+				    <p>Download it <a href="jretrofit-1.0.jar">here</a>.</p>
+				    <hr />
 				    <p>JRetrofit 1.0rc1 was released on 10.6.2007. Changes:</p>
 				    <ul>
 				      <li>Fixed a classloader bug when retrofitting an object with an
