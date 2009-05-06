@@ -31,7 +31,7 @@ public interface Retrofitter {
      * @return a retrofitted object which can be cast to the given interface.
      * @throws AllMethodsNotImplementedException if the target object does not wholly "implement" the required interface.
      */
-    public Object complete(Object target, Class<?> interfaceToImplement)
+    public <T> T complete(Object target, Class<T> interfaceToImplement)
             throws AllMethodsNotImplementedException;
     /**
      * Make the target implement multiple interfaces with a "complete" retrofitting,

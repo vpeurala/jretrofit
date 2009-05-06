@@ -33,7 +33,7 @@ public final class Retrofit {
      * @return a retrofitted object which can be cast to the given interface.
      * @throws AllMethodsNotImplementedException if the target object does not wholly "implement" the required interface.
      */
-    public static Object complete(Object target, Class<?> interfaceToImplement)
+    public static <T> T complete(Object target, Class<T> interfaceToImplement)
             throws AllMethodsNotImplementedException {
         return new RetrofitterWithoutMethodLookupCaching().complete(target,
                 interfaceToImplement);

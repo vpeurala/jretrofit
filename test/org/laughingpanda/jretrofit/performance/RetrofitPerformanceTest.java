@@ -115,11 +115,11 @@ public class RetrofitPerformanceTest extends TestCase {
                 .withoutMethodLookupCaching().partial(person, Human.class);
         final Human partialHumanWithCache = (Human) Retrofit
                 .withMethodLookupCaching().partial(person, Human.class);
-        final Human completeHumanWithoutCache = (Human) Retrofit
+        final Human completeHumanWithoutCache = Retrofit
                 .withoutMethodLookupCaching().complete(completeHuman,
                         Human.class);
-        final Human completeHumanWithCache = (Human) Retrofit
-                .withMethodLookupCaching().complete(completeHuman, Human.class);
+        final Human completeHumanWithCache = Retrofit.withMethodLookupCaching()
+                .complete(completeHuman, Human.class);
         long timeFor100000DirectGetNameCalls = executeTimedOperation(
                 new Operation() {
                     public void execute() {

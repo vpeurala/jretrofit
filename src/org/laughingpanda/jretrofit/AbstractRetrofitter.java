@@ -76,8 +76,8 @@ abstract class AbstractRetrofitter implements Retrofitter {
         }
     }
 
-    public final Object complete(Object target, Class<?> interfaceToImplement) {
-        return complete(target, new Class[] { interfaceToImplement });
+    public final <T> T complete(Object target, Class<T> interfaceToImplement) {
+        return (T) complete(target, new Class[] { interfaceToImplement });
     }
 
     public final Object complete(Object target, Class<?>[] interfacesToImplement) {
