@@ -76,6 +76,7 @@ abstract class AbstractRetrofitter implements Retrofitter {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public final <T> T complete(Object target, Class<T> interfaceToImplement) {
         return (T) complete(target, new Class[] { interfaceToImplement });
     }
@@ -125,6 +126,7 @@ abstract class AbstractRetrofitter implements Retrofitter {
         return classLoaders;
     }
 
+    @SuppressWarnings("unchecked")
     public final <T> T partial(Object target, Class<T> interfaceToImplement) {
         return (T) partial(target, new Class[] { interfaceToImplement });
     }
