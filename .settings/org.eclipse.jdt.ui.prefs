@@ -1,8 +1,7 @@
-#Sat Nov 18 18:24:55 EET 2006
+#Wed May 06 09:37:17 EEST 2009
 eclipse.preferences.version=1
 formatter_profile=_JRetrofit
 formatter_settings_version=10
-internal.default.compliance=default
 org.eclipse.jdt.ui.exception.name=e
 org.eclipse.jdt.ui.gettersetter.use.is=true
 org.eclipse.jdt.ui.javadoc=false
