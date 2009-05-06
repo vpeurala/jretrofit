@@ -7,7 +7,8 @@ orderInfo: 6
 *Q: Which version of Java does it require?*
 
 *A:*
-Java 1.3, because versions prior to that don't have dynamic proxies.
+Version 1.0 and versions prior to that require Java 1.3, because earlier versions of Java don't have dynamic proxies.
+Versions from 1.0 onwards require Java 5, because the API has been generified.
 
 *Q: Why would I use this library? I can write similar functionality myself by using dynamic proxies!*
 

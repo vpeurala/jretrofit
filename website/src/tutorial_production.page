@@ -30,7 +30,7 @@ public class LegacyClass {
 The simplest way to make an instance of <code>LegacyClass</code> implement <code>Nameable</code> is this:
 
 <pre class="example"><code>LegacyClass legacy = new LegacyClass();
-Nameable retrofittedLegacy = (Nameable) Retrofit.partial(legacy, Nameable.class);
+Nameable retrofittedLegacy = Retrofit.partial(legacy, Nameable.class);
 </code></pre>
 
 There is two different ways of retrofitting, *partial* and *complete*. In
@@ -55,7 +55,7 @@ compatible with <code>public void setName(String name)</code>.
 Now, *partial* retrofitting still works as long as you don't call <code>setName</code>:
 
 <pre class="example"><code>LegacyClass legacy = new LegacyClass();
-Nameable retrofittedLegacy = (Nameable) Retrofit.partial(legacy, Nameable.class);
+Nameable retrofittedLegacy = Retrofit.partial(legacy, Nameable.class);
 retrofittedLegacy.getName(); // This is OK.
 </code></pre>
 
@@ -63,7 +63,7 @@ But if you try to use <code>setName</code>, for which there is no compatible met
 you get an <code>UnsupportedOperationException</code>:
 
 <pre class="failing_example"><code>LegacyClass legacy = new LegacyClass();
-Nameable retrofittedLegacy = (Nameable) Retrofit.partial(legacy, Nameable.class);
+Nameable retrofittedLegacy = Retrofit.partial(legacy, Nameable.class);
 retrofittedLegacy.setName("foo"); // THIS THROWS AN EXCEPTION!.
 </code></pre>
 
@@ -72,7 +72,7 @@ would have failed:
 
 <pre class="failing_example"><code>LegacyClass legacy = new LegacyClass();
 // THIS THROWS AN EXCEPTION!
-Nameable retrofittedLegacy = (Nameable) Retrofit.complete(legacy, Nameable.class);
+Nameable retrofittedLegacy = Retrofit.complete(legacy, Nameable.class);
 </code></pre>
 
 You should use *complete* when you think that your target object &quot;implements&quot;

@@ -40,7 +40,7 @@ JRetrofit to the rescue! You can make <code>LegacyClass</code> implement <code>N
 runtime, like this:
 
 <pre class="example"><code>LegacyClass legacy = new LegacyClass();
-Nameable retrofittedLegacy = (Nameable) Retrofit.partial(legacy, Nameable.class);
+Nameable retrofittedLegacy = Retrofit.partial(legacy, Nameable.class);
 // And now you can use retrofittedLegacy just like 
 // any other class which implements Nameable!
 </code></pre>
