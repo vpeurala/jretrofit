@@ -111,9 +111,9 @@ public class RetrofitPerformanceTest extends TestCase {
             throws Exception {
         final Person person = new Person();
         final CompleteHuman completeHuman = new CompleteHuman();
-        final Human partialHumanWithoutCache = (Human) Retrofit
+        final Human partialHumanWithoutCache = Retrofit
                 .withoutMethodLookupCaching().partial(person, Human.class);
-        final Human partialHumanWithCache = (Human) Retrofit
+        final Human partialHumanWithCache = Retrofit
                 .withMethodLookupCaching().partial(person, Human.class);
         final Human completeHumanWithoutCache = Retrofit
                 .withoutMethodLookupCaching().complete(completeHuman,

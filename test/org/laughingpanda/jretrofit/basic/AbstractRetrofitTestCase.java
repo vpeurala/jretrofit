@@ -82,7 +82,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     protected Person person;
 
     protected final Human createPartialHuman() {
-        return (Human) createRetrofitter().partial(person, Human.class);
+        return createRetrofitter().partial(person, Human.class);
     }
 
     protected abstract Retrofitter createRetrofitter();
@@ -215,15 +215,13 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     public final void testRetrofittingCanBeDoneWithPrivateStubs()
             throws Exception {
         HumanStub stub = new HumanStub();
-        Human fromPrivateStub = (Human) createRetrofitter().partial(stub,
-                Human.class);
+        Human fromPrivateStub = createRetrofitter().partial(stub, Human.class);
         assertEquals("Pertti", fromPrivateStub.getName());
     }
 
     public final void testProxiesCanBeSerialized() throws Exception {
         Serializable wrappedObject = new SerializableStub();
-        Human proxy = (Human) createRetrofitter().partial(wrappedObject,
-                Human.class);
+        Human proxy = createRetrofitter().partial(wrappedObject, Human.class);
         byte[] serialized = serialize(proxy);
         Human deserialized = (Human) deserialize(serialized);
         assertEquals("Pena", deserialized.getName());

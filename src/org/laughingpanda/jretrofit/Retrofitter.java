@@ -55,7 +55,7 @@ public interface Retrofitter {
      * @param interfaceToImplement an interface to "implement" partially.
      * @return a retrofitted object which can be cast to the given interface.
      */
-    public Object partial(Object target, Class<?> interfaceToImplement);
+    public <T> T partial(Object target, Class<T> interfaceToImplement);
     /**
      * Make the target implement multiple interfaces with a "partial" retrofitting,
      * which means that it is not checked whether the target has all the required

@@ -66,7 +66,7 @@ public final class Retrofit {
      * @param interfaceToImplement an interface to "implement" partially.
      * @return a retrofitted object which can be cast to the given interface.
      */
-    public static Object partial(Object target, Class<?> interfaceToImplement) {
+    public static <T> T partial(Object target, Class<T> interfaceToImplement) {
         return new RetrofitterWithoutMethodLookupCaching().partial(target,
                 interfaceToImplement);
     }

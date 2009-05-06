@@ -125,9 +125,10 @@ abstract class AbstractRetrofitter implements Retrofitter {
         return classLoaders;
     }
 
-    public final Object partial(Object target, Class<?> interfaceToImplement) {
-        return partial(target, new Class[] { interfaceToImplement });
+    public final <T> T partial(Object target, Class<T> interfaceToImplement) {
+        return (T) partial(target, new Class[] { interfaceToImplement });
     }
+
     public final Object partial(Object target, Class<?>[] interfacesToImplement) {
         checkParameters(target, interfacesToImplement);
         return createProxy(target, interfacesToImplement,
