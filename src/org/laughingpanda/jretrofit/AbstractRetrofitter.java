@@ -25,17 +25,17 @@ import java.util.List;
  * @author Ville Peurala
  */
 abstract class AbstractRetrofitter implements Retrofitter {
-    private Class[] allInterfacesToImplement(Object target,
-            Class[] interfacesToImplement) {
-        ArrayList allInterfacesToImplement = new ArrayList();
+    private Class<?>[] allInterfacesToImplement(Object target,
+            Class<?>[] interfacesToImplement) {
+        ArrayList<Class<?>> allInterfacesToImplement = new ArrayList<Class<?>>();
         allInterfacesToImplement.addAll(Arrays.asList(interfacesToImplement));
         allInterfacesToImplement.addAll(Arrays.asList(target.getClass()
                 .getInterfaces()));
-        return (Class[]) allInterfacesToImplement
+        return allInterfacesToImplement
                 .toArray(new Class[allInterfacesToImplement.size()]);
     }
 
-    private void checkParameters(Object target, Class[] interfacesToImplement) {
+    private void checkParameters(Object target, Class<?>[] interfacesToImplement) {
         if (target == null) {
             throw new IllegalArgumentException("Target object cannot be null!");
         }
@@ -52,16 +52,16 @@ abstract class AbstractRetrofitter implements Retrofitter {
     }
 
     private void checkThatAllRequiredMethodsAreImplemented(
-            Class[] interfacesToImplement, AbstractMethodLookupHelper helper) {
-        ArrayList allMethodsWhichShouldBeImplementedList = new ArrayList();
+            Class<?>[] interfacesToImplement, AbstractMethodLookupHelper helper) {
+        ArrayList<Method> allMethodsWhichShouldBeImplementedList = new ArrayList<Method>();
         for (int i = 0; i < interfacesToImplement.length; i++) {
             allMethodsWhichShouldBeImplementedList.addAll(Arrays
                     .asList(interfacesToImplement[i].getMethods()));
         }
-        Method[] allMethodsWhichShouldBeImplemented = (Method[]) allMethodsWhichShouldBeImplementedList
+        Method[] allMethodsWhichShouldBeImplemented = allMethodsWhichShouldBeImplementedList
                 .toArray(new Method[allMethodsWhichShouldBeImplementedList
                         .size()]);
-        ArrayList methodsNotImplemented = new ArrayList();
+        ArrayList<Method> methodsNotImplemented = new ArrayList<Method>();
         for (int i = 0; i < allMethodsWhichShouldBeImplemented.length; i++) {
             try {
                 helper.findMethodToCall(allMethodsWhichShouldBeImplemented[i]);
@@ -71,17 +71,16 @@ abstract class AbstractRetrofitter implements Retrofitter {
             }
         }
         if (!methodsNotImplemented.isEmpty()) {
-            throw new AllMethodsNotImplementedException(
-                    (Method[]) methodsNotImplemented
-                            .toArray(new Method[methodsNotImplemented.size()]));
+            throw new AllMethodsNotImplementedException(methodsNotImplemented
+                    .toArray(new Method[methodsNotImplemented.size()]));
         }
     }
 
-    public final Object complete(Object target, Class interfaceToImplement) {
+    public final Object complete(Object target, Class<?> interfaceToImplement) {
         return complete(target, new Class[] { interfaceToImplement });
     }
 
-    public final Object complete(Object target, Class[] interfacesToImplement) {
+    public final Object complete(Object target, Class<?>[] interfacesToImplement) {
         checkParameters(target, interfacesToImplement);
         AbstractMethodLookupHelper helper = createMethodLookupHelper(target);
         checkThatAllRequiredMethodsAreImplemented(interfacesToImplement, helper);
@@ -91,11 +90,11 @@ abstract class AbstractRetrofitter implements Retrofitter {
     protected abstract AbstractMethodLookupHelper createMethodLookupHelper(
             Object target);
 
-    private Object createProxy(Object target, Class[] interfacesToImplement,
+    private Object createProxy(Object target, Class<?>[] interfacesToImplement,
             AbstractMethodLookupHelper methodLookupHelper) {
         ClassLoader[] candidateClassLoaders = getCandidateClassLoaders(target,
                 interfacesToImplement);
-        List exceptions = new ArrayList();
+        List<Throwable> exceptions = new ArrayList<Throwable>();
         for (int i = 0; i < candidateClassLoaders.length; i++) {
             try {
                 return Proxy
@@ -117,7 +116,7 @@ abstract class AbstractRetrofitter implements Retrofitter {
     }
 
     private ClassLoader[] getCandidateClassLoaders(Object target,
-            Class[] interfacesToImplement) {
+            Class<?>[] interfacesToImplement) {
         ClassLoader[] classLoaders = new ClassLoader[interfacesToImplement.length + 1];
         classLoaders[0] = target.getClass().getClassLoader();
         for (int i = 0; i < interfacesToImplement.length; i++) {
@@ -126,10 +125,10 @@ abstract class AbstractRetrofitter implements Retrofitter {
         return classLoaders;
     }
 
-    public final Object partial(Object target, Class interfaceToImplement) {
+    public final Object partial(Object target, Class<?> interfaceToImplement) {
         return partial(target, new Class[] { interfaceToImplement });
     }
-    public final Object partial(Object target, Class[] interfacesToImplement) {
+    public final Object partial(Object target, Class<?>[] interfacesToImplement) {
         checkParameters(target, interfacesToImplement);
         return createProxy(target, interfacesToImplement,
                 createMethodLookupHelper(target));

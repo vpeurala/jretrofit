@@ -55,6 +55,7 @@ public class AllMethodsNotImplementedException extends RuntimeException {
     /* (non-Javadoc)
      * @see java.lang.Throwable#toString()
      */
+    @Override
     public String toString() {
         return "Methods not implemented: " + notImplementedMethodsAsString()
                 + ".";

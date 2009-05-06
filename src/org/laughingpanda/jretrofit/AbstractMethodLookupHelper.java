@@ -33,11 +33,11 @@ abstract class AbstractMethodLookupHelper implements Serializable {
     protected Method findCompatibleMethod(Method interfaceMethod) {
         Method[] publicMethods = getTarget().getClass().getMethods();
         Method[] declaredMethods = getTarget().getClass().getDeclaredMethods();
-        ArrayList allMethods = new ArrayList();
+        ArrayList<Method> allMethods = new ArrayList<Method>();
         allMethods.addAll(Arrays.asList(publicMethods));
         allMethods.addAll(Arrays.asList(declaredMethods));
-        Method[] targetMethods = (Method[]) allMethods
-                .toArray(new Method[allMethods.size()]);
+        Method[] targetMethods = allMethods.toArray(new Method[allMethods
+                .size()]);
         for (int i = 0; i < targetMethods.length; i++) {
             Method currentMethod = targetMethods[i];
             if (areMethodsCompatible(interfaceMethod, currentMethod)) {
@@ -66,14 +66,16 @@ abstract class AbstractMethodLookupHelper implements Serializable {
 
     private boolean areParametersCompatible(Method requestedMethod,
             Method candidateMethod) {
-        Class[] requestedParameterTypes = requestedMethod.getParameterTypes();
-        Class[] candidateParameterTypes = candidateMethod.getParameterTypes();
+        Class<?>[] requestedParameterTypes = requestedMethod
+                .getParameterTypes();
+        Class<?>[] candidateParameterTypes = candidateMethod
+                .getParameterTypes();
         if (requestedParameterTypes.length != candidateParameterTypes.length) {
             return false;
         }
         for (int i = 0; i < requestedParameterTypes.length; i++) {
-            Class currentRequestedParameterType = requestedParameterTypes[i];
-            Class currentCandidateParameterType = candidateParameterTypes[i];
+            Class<?> currentRequestedParameterType = requestedParameterTypes[i];
+            Class<?> currentCandidateParameterType = candidateParameterTypes[i];
             if (!currentCandidateParameterType
                     .isAssignableFrom(currentRequestedParameterType)) {
                 return false;
@@ -84,8 +86,8 @@ abstract class AbstractMethodLookupHelper implements Serializable {
 
     private boolean areReturnValuesCompatible(Method requestedMethod,
             Method candidateMethod) {
-        Class requstedReturnValueType = requestedMethod.getReturnType();
-        Class candidateReturnValueType = candidateMethod.getReturnType();
+        Class<?> requstedReturnValueType = requestedMethod.getReturnType();
+        Class<?> candidateReturnValueType = candidateMethod.getReturnType();
         return requstedReturnValueType
                 .isAssignableFrom(candidateReturnValueType);
     }

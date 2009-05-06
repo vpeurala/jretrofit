@@ -18,7 +18,7 @@ package org.laughingpanda.jretrofit.fixture;
 /**
  * @author Ville Peurala
  */
-public class Person implements Comparable {
+public class Person implements Comparable<Object> {
     private String name;
     private String favoriteColor;
     private Object home;

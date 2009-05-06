@@ -33,7 +33,7 @@ public final class Retrofit {
      * @return a retrofitted object which can be cast to the given interface.
      * @throws AllMethodsNotImplementedException if the target object does not wholly "implement" the required interface.
      */
-    public static Object complete(Object target, Class interfaceToImplement)
+    public static Object complete(Object target, Class<?> interfaceToImplement)
             throws AllMethodsNotImplementedException {
         return new RetrofitterWithoutMethodLookupCaching().complete(target,
                 interfaceToImplement);
@@ -49,7 +49,8 @@ public final class Retrofit {
      * @return a retrofitted object which can be cast to any of the given interfaces.
      * @throws AllMethodsNotImplementedException if the target object does not wholly "implement" all of the required interfaces.
      */
-    public static Object complete(Object target, Class[] interfacesToImplement)
+    public static Object complete(Object target,
+            Class<?>[] interfacesToImplement)
             throws AllMethodsNotImplementedException {
         return new RetrofitterWithoutMethodLookupCaching().complete(target,
                 interfacesToImplement);
@@ -65,7 +66,7 @@ public final class Retrofit {
      * @param interfaceToImplement an interface to "implement" partially.
      * @return a retrofitted object which can be cast to the given interface.
      */
-    public static Object partial(Object target, Class interfaceToImplement) {
+    public static Object partial(Object target, Class<?> interfaceToImplement) {
         return new RetrofitterWithoutMethodLookupCaching().partial(target,
                 interfaceToImplement);
     }
@@ -80,7 +81,7 @@ public final class Retrofit {
      * @param interfacesToImplement an array of interfaces to "implement" partially.
      * @return a retrofitted object which can be cast to any of the given interfaces.
      */
-    public static Object partial(Object target, Class[] interfacesToImplement) {
+    public static Object partial(Object target, Class<?>[] interfacesToImplement) {
         return new RetrofitterWithoutMethodLookupCaching().partial(target,
                 interfacesToImplement);
     }

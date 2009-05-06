@@ -24,6 +24,7 @@ import org.laughingpanda.jretrofit.Retrofitter;
  * @author Ville Peurala
  */
 public class RetrofitWithMethodCachingTest extends AbstractRetrofitTestCase {
+    @Override
     protected Retrofitter createRetrofitter() {
         return Retrofit.withMethodLookupCaching();
     }
@@ -40,9 +41,10 @@ public class RetrofitWithMethodCachingTest extends AbstractRetrofitTestCase {
         // because the constructor of class Retrofit is
         // private (it is a library class, never meant to
         // be instantiated). So we call it here.
-        Constructor c = Retrofit.class.getDeclaredConstructor(null);
+        Constructor<?> c = Retrofit.class
+                .getDeclaredConstructor((Class<?>[]) null);
         c.setAccessible(true);
-        Retrofit retrofit = (Retrofit) c.newInstance(null);
+        Retrofit retrofit = (Retrofit) c.newInstance((Object[]) null);
         assertNotNull(retrofit);
     }
 }

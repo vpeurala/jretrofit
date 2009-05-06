@@ -25,14 +25,15 @@ import java.util.HashMap;
 class CachingMethodLookupHelper extends AbstractMethodLookupHelper implements
         Serializable {
     private static final long serialVersionUID = 1977L;
-    private final HashMap methodCache = new HashMap();
+    private final HashMap<Method, Method> methodCache = new HashMap<Method, Method>();
 
     protected CachingMethodLookupHelper(Object target) {
         super(target);
     }
 
+    @Override
     Method findMethodToCall(Method interfaceMethod) {
-        Method cachedMethod = (Method) methodCache.get(interfaceMethod);
+        Method cachedMethod = methodCache.get(interfaceMethod);
         if (cachedMethod != null) {
             return cachedMethod;
         }

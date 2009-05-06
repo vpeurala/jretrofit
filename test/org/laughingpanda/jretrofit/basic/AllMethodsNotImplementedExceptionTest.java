@@ -27,15 +27,14 @@ import org.laughingpanda.jretrofit.AllMethodsNotImplementedException;
 public class AllMethodsNotImplementedExceptionTest extends TestCase {
     public void testToStringWithASingleUnimplementedMethod() throws Exception {
         Method[] methods = new Method[] { Object.class.getMethod("toString",
-                null) };
+                (Class<?>[]) null) };
         AllMethodsNotImplementedException exception = new AllMethodsNotImplementedException(
                 methods);
         assertEquals("Methods not implemented: toString.", exception.toString());
     }
-
     public void testToStringWithTwoUnimplementedMethods() throws Exception {
         Method[] methods = new Method[] {
-                Object.class.getMethod("toString", null),
+                Object.class.getMethod("toString", (Class<?>[]) null),
                 Object.class.getMethod("equals", new Class[] { Object.class }) };
         AllMethodsNotImplementedException exception = new AllMethodsNotImplementedException(
                 methods);
@@ -45,9 +44,9 @@ public class AllMethodsNotImplementedExceptionTest extends TestCase {
 
     public void testToStringWithThreeUnimplementedMethods() throws Exception {
         Method[] methods = new Method[] {
-                Object.class.getMethod("toString", null),
+                Object.class.getMethod("toString", (Class<?>[]) null),
                 Object.class.getMethod("equals", new Class[] { Object.class }),
-                Object.class.getMethod("hashCode", null) };
+                Object.class.getMethod("hashCode", (Class<?>[]) null) };
         AllMethodsNotImplementedException exception = new AllMethodsNotImplementedException(
                 methods);
         assertEquals("Methods not implemented: toString, equals, hashCode.",

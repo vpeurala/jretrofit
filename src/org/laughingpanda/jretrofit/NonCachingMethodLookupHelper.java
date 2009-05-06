@@ -29,6 +29,7 @@ class NonCachingMethodLookupHelper extends AbstractMethodLookupHelper implements
         super(target);
     }
 
+    @Override
     Method findMethodToCall(Method interfaceMethod) {
         return findCompatibleMethod(interfaceMethod);
     }

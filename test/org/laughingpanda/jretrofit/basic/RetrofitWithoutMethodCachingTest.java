@@ -25,6 +25,7 @@ import org.laughingpanda.jretrofit.fixture.Person;
  * @author Ville Peurala
  */
 public class RetrofitWithoutMethodCachingTest extends AbstractRetrofitTestCase {
+    @Override
     protected Retrofitter createRetrofitter() {
         return Retrofit.withoutMethodLookupCaching();
     }

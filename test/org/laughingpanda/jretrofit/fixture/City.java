@@ -29,6 +29,7 @@ public class City {
         return name;
     }
 
+    @Override
     public String toString() {
         return "City: " + name + ".";
     }

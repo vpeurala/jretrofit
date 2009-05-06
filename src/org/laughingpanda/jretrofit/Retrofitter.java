@@ -31,7 +31,7 @@ public interface Retrofitter {
      * @return a retrofitted object which can be cast to the given interface.
      * @throws AllMethodsNotImplementedException if the target object does not wholly "implement" the required interface.
      */
-    public Object complete(Object target, Class interfaceToImplement)
+    public Object complete(Object target, Class<?> interfaceToImplement)
             throws AllMethodsNotImplementedException;
     /**
      * Make the target implement multiple interfaces with a "complete" retrofitting,
@@ -43,7 +43,7 @@ public interface Retrofitter {
      * @return a retrofitted object which can be cast to any of the given interfaces.
      * @throws AllMethodsNotImplementedException if the target object does not wholly "implement" all of the required interfaces.
      */
-    public Object complete(Object target, Class[] interfacesToImplement)
+    public Object complete(Object target, Class<?>[] interfacesToImplement)
             throws AllMethodsNotImplementedException;
     /**
      * Make the target implement a single interface with a "partial" retrofitting,
@@ -55,7 +55,7 @@ public interface Retrofitter {
      * @param interfaceToImplement an interface to "implement" partially.
      * @return a retrofitted object which can be cast to the given interface.
      */
-    public Object partial(Object target, Class interfaceToImplement);
+    public Object partial(Object target, Class<?> interfaceToImplement);
     /**
      * Make the target implement multiple interfaces with a "partial" retrofitting,
      * which means that it is not checked whether the target has all the required
@@ -66,7 +66,7 @@ public interface Retrofitter {
      * @param interfacesToImplement an array of interfaces to "implement" partially.
      * @return a retrofitted object which can be cast to any of the given interfaces.
      */
-    public Object partial(Object target, Class[] interfacesToImplement);
+    public Object partial(Object target, Class<?>[] interfacesToImplement);
     /**
      * Returns a {@link Retrofitter} which caches method lookup, which means that retrofitted
      * objects returned by it generally perform a lot faster than objects created

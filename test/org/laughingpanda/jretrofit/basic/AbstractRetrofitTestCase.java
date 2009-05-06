@@ -27,7 +27,6 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -54,15 +53,14 @@ import org.laughingpanda.jretrofit.fixture.Resident;
 public abstract class AbstractRetrofitTestCase extends TestCase {
     private static void assertNotImplementedMethods(String[] methodNames,
             AllMethodsNotImplementedException e) {
-        List assertedMethodNamesAsList = Arrays.asList(methodNames);
-        List notImplementedMethodNamesAsList = new ArrayList();
+        List<String> assertedMethodNamesAsList = Arrays.asList(methodNames);
+        List<String> notImplementedMethodNamesAsList = new ArrayList<String>();
         Method[] notImplementedMethods = e.getNotImplementedMethods();
         for (int i = 0; i < notImplementedMethods.length; i++) {
             notImplementedMethodNamesAsList.add(notImplementedMethods[i]
                     .getName());
         }
-        for (Iterator it = assertedMethodNamesAsList.iterator(); it.hasNext();) {
-            String currentAssertedMethodName = (String) it.next();
+        for (String currentAssertedMethodName : assertedMethodNamesAsList) {
             if (!notImplementedMethodNamesAsList
                     .contains(currentAssertedMethodName)) {
                 fail("Assertion contained method named '"
@@ -70,9 +68,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
                         + "', which was not in the AllMethodsNotImplementedException.");
             }
         }
-        for (Iterator it = notImplementedMethodNamesAsList.iterator(); it
-                .hasNext();) {
-            String currentNotImplementedMethodName = (String) it.next();
+        for (String currentNotImplementedMethodName : notImplementedMethodNamesAsList) {
             if (!assertedMethodNamesAsList
                     .contains(currentNotImplementedMethodName)) {
                 fail("AllMethodsNotImplementedException contained method named '"
@@ -91,6 +87,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
 
     protected abstract Retrofitter createRetrofitter();
 
+    @Override
     protected final void setUp() throws Exception {
         person = new Person();
         person.setName("Antti");
@@ -105,7 +102,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
      * although interface Human does not extend from Comparable!
      */
     public final void testCanCastProxyToAnyInterfaceImplementedByTargetObject() {
-        Comparable comparable = (Comparable) human;
+        Comparable<?> comparable = (Comparable<?>) human;
         // This idiotic assertion is here just because we have very 
         // strict compiler settings in this project. The code would
         // not compile with unused local variable 'comparable',
@@ -120,8 +117,12 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
         assertEquals("Antti", localHuman.getName());
         Resident localResident = (Resident) retrofittedObject;
         assertEquals("City: Pori.", localResident.getHomeAddress());
-        Comparable localComparable = (Comparable) retrofittedObject;
-        assertEquals(1, localComparable.compareTo(this));
+        Comparable<?> localComparable = (Comparable<?>) retrofittedObject;
+        // This idiotic assertion is here just because we have very 
+        // strict compiler settings in this project. The code would
+        // not compile with unused local variable 'comparable',
+        // so we have to use it in some way.
+        assertSame(localHuman, localComparable);
     }
 
     public final void testCanInvokeAMethodWithParameterOfNarrowerType() {
@@ -184,7 +185,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
                 new CompleteHuman(),
                 new Class[] { Human.class, Comparable.class });
         assertEquals("White", ((Human) retrofittedObject).getFavoriteColor());
-        assertEquals(1, ((Comparable) retrofittedObject).compareTo(null));
+        assertEquals(1, ((Comparable<?>) retrofittedObject).compareTo(null));
     }
 
     public final void testCompleteRetrofittingOfHumanDoesNotWorkOnPerson() {
@@ -248,7 +249,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
 
     public final void testCannotPartiallyRetrofitAnObjectWithANullInterface() {
         try {
-            createRetrofitter().partial(new Object(), (Class) null);
+            createRetrofitter().partial(new Object(), (Class<?>) null);
             fail();
         } catch (IllegalArgumentException expected) {
             assertEquals("Interface to implement cannot be null!", expected
@@ -277,7 +278,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
 
     public final void testCannotCompletelyRetrofitAnObjectWithANullInterface() {
         try {
-            createRetrofitter().complete(new Object(), (Class) null);
+            createRetrofitter().complete(new Object(), (Class<?>) null);
             fail();
         } catch (IllegalArgumentException expected) {
             assertEquals("Interface to implement cannot be null!", expected

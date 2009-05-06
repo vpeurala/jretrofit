@@ -23,6 +23,7 @@ package org.laughingpanda.jretrofit;
  * @author Ville Peurala
  */
 public class RetrofitterWithoutMethodLookupCaching extends AbstractRetrofitter {
+    @Override
     protected AbstractMethodLookupHelper createMethodLookupHelper(Object target) {
         return new NonCachingMethodLookupHelper(target);
     }
