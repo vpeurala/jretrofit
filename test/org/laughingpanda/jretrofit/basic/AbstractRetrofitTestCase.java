@@ -198,9 +198,9 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     }
 
     public final void testCompleteRetrofittingOfHumanWorksOnCompleteHuman() {
-        Object retrofittedObject = createRetrofitter().complete(
+        Human retrofittedHuman = createRetrofitter().complete(
                 new CompleteHuman(), Human.class);
-        assertEquals("White", ((Human) retrofittedObject).getFavoriteColor());
+        assertEquals("White", retrofittedHuman.getFavoriteColor());
     }
 
     public final void testRuntimeExceptionsAreThrownNormally() throws Exception {
