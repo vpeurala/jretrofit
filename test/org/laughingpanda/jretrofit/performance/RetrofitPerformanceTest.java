@@ -48,6 +48,8 @@ import org.laughingpanda.jretrofit.fixture.Person;
  * @author Ville Peurala
  */
 public class RetrofitPerformanceTest extends TestCase {
+    private static final int NUMBER_OF_CALLS = 100000;
+    private static final int NUMBER_OF_CREATIONS = 1000;
     /**
      * Set this to true if you want to record performance results.
      */
@@ -55,53 +57,49 @@ public class RetrofitPerformanceTest extends TestCase {
 
     public void testBenchmarkDifferenceBetweenOrdinaryCreationAndRetrofitting()
             throws Exception {
-        long timeFor1000Creations = executeTimedOperation(new Operation() {
+        long timeForXCreations = executeTimedOperation(new Operation() {
             public void execute() {
                 new Person();
             }
-        }, 1000);
-        long timeFor1000PartialRetrofittingsWithoutCache = executeTimedOperation(
+        }, NUMBER_OF_CREATIONS);
+        long timeForXPartialRetrofittingsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         Person person = new Person();
                         Retrofit.withoutMethodLookupCaching().partial(person,
                                 Human.class);
                     }
-                }, 1000);
-        long timeFor1000PartialRetrofittingsWithCache = executeTimedOperation(
+                }, NUMBER_OF_CREATIONS);
+        long timeForXPartialRetrofittingsWithCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         Person person = new Person();
                         Retrofit.withoutMethodLookupCaching().partial(person,
                                 Human.class);
                     }
-                }, 1000);
-        long timeFor1000CompleteRetrofittingsWithoutCache = executeTimedOperation(
+                }, NUMBER_OF_CREATIONS);
+        long timeForXCompleteRetrofittingsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         CompleteHuman completeHuman = new CompleteHuman();
                         Retrofit.withoutMethodLookupCaching().complete(
                                 completeHuman, Human.class);
                     }
-                }, 1000);
-        long timeFor1000CompleteRetrofittingsWithCache = executeTimedOperation(
+                }, NUMBER_OF_CREATIONS);
+        long timeForXCompleteRetrofittingsWithCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         CompleteHuman completeHuman = new CompleteHuman();
                         Retrofit.withMethodLookupCaching().complete(
                                 completeHuman, Human.class);
                     }
-                }, 1000);
+                }, NUMBER_OF_CREATIONS);
         if (OUTPUT_RESULTS_TO_SYSOUT) {
-            System.out.println("timeFor1000Creations: " + timeFor1000Creations);
-            System.out.println("timeFor1000PartialRetrofittingsWithoutCache: "
-                    + timeFor1000PartialRetrofittingsWithoutCache);
-            System.out.println("timeFor1000PartialRetrofittingsWithCache: "
-                    + timeFor1000PartialRetrofittingsWithCache);
-            System.out.println("timeFor1000CompleteRetrofittingsWithoutCache: "
-                    + timeFor1000CompleteRetrofittingsWithoutCache);
-            System.out.println("timeFor1000CompleteRetrofittingsWithCache: "
-                    + timeFor1000CompleteRetrofittingsWithCache);
+            outputCreationResults(timeForXCreations,
+                    timeForXPartialRetrofittingsWithoutCache,
+                    timeForXPartialRetrofittingsWithCache,
+                    timeForXCompleteRetrofittingsWithoutCache,
+                    timeForXCompleteRetrofittingsWithCache);
         }
     }
 
@@ -118,53 +116,87 @@ public class RetrofitPerformanceTest extends TestCase {
                         Human.class);
         final Human completeHumanWithCache = Retrofit.withMethodLookupCaching()
                 .complete(completeHuman, Human.class);
-        long timeFor100000DirectGetNameCalls = executeTimedOperation(
+        long timeForXDirectGetNameCalls = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         person.getName();
                     }
-                }, 100000);
-        long timeFor100000PartiallyRetrofittedGetNameCallsWithoutCache = executeTimedOperation(
+                }, NUMBER_OF_CALLS);
+        long timeForXPartiallyRetrofittedGetNameCallsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         partialHumanWithoutCache.getName();
                     }
-                }, 100000);
-        long timeFor100000PartiallyRetrofittedGetNameCallsWithCache = executeTimedOperation(
+                }, NUMBER_OF_CALLS);
+        long timeForXPartiallyRetrofittedGetNameCallsWithCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         partialHumanWithCache.getName();
                     }
-                }, 100000);
-        long timeFor100000CompletelyRetrofittedGetNameCallsWithoutCache = executeTimedOperation(
+                }, NUMBER_OF_CALLS);
+        long timeForXCompletelyRetrofittedGetNameCallsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         completeHumanWithoutCache.getName();
                     }
-                }, 100000);
-        long timeFor100000CompletelyRetrofittedGetNameCallsWithCache = executeTimedOperation(
+                }, NUMBER_OF_CALLS);
+        long timeForXCompletelyRetrofittedGetNameCallsWithCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         completeHumanWithCache.getName();
                     }
-                }, 100000);
+                }, NUMBER_OF_CALLS);
         if (OUTPUT_RESULTS_TO_SYSOUT) {
-            System.out.println("timeFor100000DirectGetNameCalls: "
-                    + timeFor100000DirectGetNameCalls);
-            System.out
-                    .println("timeFor100000PartiallyRetrofittedGetNameCallsWithoutCache: "
-                            + timeFor100000PartiallyRetrofittedGetNameCallsWithoutCache);
-            System.out
-                    .println("timeFor100000PartiallyRetrofittedGetNameCallsWithCache: "
-                            + timeFor100000PartiallyRetrofittedGetNameCallsWithCache);
-            System.out
-                    .println("timeFor100000CompletelyRetrofittedGetNameCallsWithoutCache: "
-                            + timeFor100000CompletelyRetrofittedGetNameCallsWithoutCache);
-            System.out
-                    .println("timeFor100000CompletelyRetrofittedGetNameCallsWithCache: "
-                            + timeFor100000CompletelyRetrofittedGetNameCallsWithCache);
+            outputCallResults(timeForXDirectGetNameCalls,
+                    timeForXPartiallyRetrofittedGetNameCallsWithoutCache,
+                    timeForXPartiallyRetrofittedGetNameCallsWithCache,
+                    timeForXCompletelyRetrofittedGetNameCallsWithoutCache,
+                    timeForXCompletelyRetrofittedGetNameCallsWithCache);
         }
     }
+
+    private void outputCallResults(long timeForXDirectGetNameCalls,
+            long timeForXPartiallyRetrofittedGetNameCallsWithoutCache,
+            long timeForXPartiallyRetrofittedGetNameCallsWithCache,
+            long timeForXCompletelyRetrofittedGetNameCallsWithoutCache,
+            long timeForXCompletelyRetrofittedGetNameCallsWithCache) {
+        System.out.println("Time for " + NUMBER_OF_CALLS
+                + " direct getName() calls: " + timeForXDirectGetNameCalls);
+        System.out.println("Time for " + NUMBER_OF_CALLS
+                + " partially retrofitted getName() calls without cache: "
+                + timeForXPartiallyRetrofittedGetNameCallsWithoutCache);
+        System.out.println("Time for " + NUMBER_OF_CALLS
+                + " partially retrofitted getName() calls with cache: "
+                + timeForXPartiallyRetrofittedGetNameCallsWithCache);
+        System.out.println("Time for " + NUMBER_OF_CALLS
+                + " completely retrofitted getName() calls without cache: "
+                + timeForXCompletelyRetrofittedGetNameCallsWithoutCache);
+        System.out.println("Time for " + NUMBER_OF_CALLS
+                + " completely retrofitted getName() calls with cache: "
+                + timeForXCompletelyRetrofittedGetNameCallsWithCache);
+    }
+
+    private void outputCreationResults(long timeForXCreations,
+            long timeForXPartialRetrofittingsWithoutCache,
+            long timeForXPartialRetrofittingsWithCache,
+            long timeForXCompleteRetrofittingsWithoutCache,
+            long timeForXCompleteRetrofittingsWithCache) {
+        System.out.println("Time for " + NUMBER_OF_CREATIONS + " creations: "
+                + timeForXCreations);
+        System.out.println("Time for " + NUMBER_OF_CREATIONS
+                + " partial retrofittings without cache: "
+                + timeForXPartialRetrofittingsWithoutCache);
+        System.out.println("Time for " + NUMBER_OF_CREATIONS
+                + " partial retrofittings with cache: "
+                + timeForXPartialRetrofittingsWithCache);
+        System.out.println("Time for " + NUMBER_OF_CREATIONS
+                + " complete retrofittings without cache: "
+                + timeForXCompleteRetrofittingsWithoutCache);
+        System.out.println("Time for " + NUMBER_OF_CREATIONS
+                + " complete retrofittings with cache: "
+                + timeForXCompleteRetrofittingsWithCache);
+    }
+
     private long executeTimedOperation(Operation operation, int times) {
         long begin = System.currentTimeMillis();
         for (int i = 0; i < times; i++) {
