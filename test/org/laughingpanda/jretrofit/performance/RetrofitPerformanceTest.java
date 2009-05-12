@@ -55,27 +55,27 @@ public class RetrofitPerformanceTest extends TestCase {
 
     public void testBenchmarkDifferenceBetweenOrdinaryCreationAndRetrofitting()
             throws Exception {
-        long timeFor100000Creations = executeTimedOperation(new Operation() {
+        long timeFor1000Creations = executeTimedOperation(new Operation() {
             public void execute() {
                 new Person();
             }
-        }, 100000);
-        long timeFor100000PartialRetrofittingsWithoutCache = executeTimedOperation(
+        }, 1000);
+        long timeFor1000PartialRetrofittingsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         Person person = new Person();
                         Retrofit.withoutMethodLookupCaching().partial(person,
                                 Human.class);
                     }
-                }, 100000);
-        long timeFor100000PartialRetrofittingsWithCache = executeTimedOperation(
+                }, 1000);
+        long timeFor1000PartialRetrofittingsWithCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
                         Person person = new Person();
                         Retrofit.withoutMethodLookupCaching().partial(person,
                                 Human.class);
                     }
-                }, 100000);
+                }, 1000);
         long timeFor1000CompleteRetrofittingsWithoutCache = executeTimedOperation(
                 new Operation() {
                     public void execute() {
@@ -93,13 +93,11 @@ public class RetrofitPerformanceTest extends TestCase {
                     }
                 }, 1000);
         if (OUTPUT_RESULTS_TO_SYSOUT) {
-            System.out.println("timeFor100000Creations: "
-                    + timeFor100000Creations);
-            System.out
-                    .println("timeFor100000PartialRetrofittingsWithoutCache: "
-                            + timeFor100000PartialRetrofittingsWithoutCache);
-            System.out.println("timeFor100000PartialRetrofittingsWithCache: "
-                    + timeFor100000PartialRetrofittingsWithCache);
+            System.out.println("timeFor1000Creations: " + timeFor1000Creations);
+            System.out.println("timeFor1000PartialRetrofittingsWithoutCache: "
+                    + timeFor1000PartialRetrofittingsWithoutCache);
+            System.out.println("timeFor1000PartialRetrofittingsWithCache: "
+                    + timeFor1000PartialRetrofittingsWithCache);
             System.out.println("timeFor1000CompleteRetrofittingsWithoutCache: "
                     + timeFor1000CompleteRetrofittingsWithoutCache);
             System.out.println("timeFor1000CompleteRetrofittingsWithCache: "
@@ -113,8 +111,8 @@ public class RetrofitPerformanceTest extends TestCase {
         final CompleteHuman completeHuman = new CompleteHuman();
         final Human partialHumanWithoutCache = Retrofit
                 .withoutMethodLookupCaching().partial(person, Human.class);
-        final Human partialHumanWithCache = Retrofit
-                .withMethodLookupCaching().partial(person, Human.class);
+        final Human partialHumanWithCache = Retrofit.withMethodLookupCaching()
+                .partial(person, Human.class);
         final Human completeHumanWithoutCache = Retrofit
                 .withoutMethodLookupCaching().complete(completeHuman,
                         Human.class);
