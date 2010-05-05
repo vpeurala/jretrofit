@@ -52,7 +52,7 @@ using partial retrofitting:
 
 <pre class="example"><code>import java.sql.PreparedStatement;
 import junit.framework.TestCase;
-import org.laughingpanda.jretrofit.Retrofit;
+import org.jretrofit.Retrofit;
 
 public class PreparedStatementExampleTest extends TestCase {
     public void testExecutePreparedStatementReturnsTrueOnSuccess()
