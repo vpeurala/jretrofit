@@ -24,6 +24,7 @@ import java.util.Arrays;
  * @author Ville Peurala
  */
 abstract class AbstractMethodLookupHelper implements Serializable {
+    private static final long serialVersionUID = 1977L;
     private Object target;
 
     protected AbstractMethodLookupHelper(Object target) {
