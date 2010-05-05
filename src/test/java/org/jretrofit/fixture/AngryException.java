@@ -19,7 +19,7 @@ package org.jretrofit.fixture;
  * @author Ville Peurala
  */
 public class AngryException extends Exception {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1977L;
 
     public AngryException(String s) {
         super(s);

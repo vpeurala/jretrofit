@@ -43,10 +43,9 @@ import org.jretrofit.fixture.Person;
 import org.jretrofit.fixture.Resident;
 
 /**
- * A set of base assertions for unit tests. Extend
- * from this class and try different ways of 
- * creating a retrofitted class (for example, 
- * with/without caching).
+ * A set of base assertions for unit tests. Extend from this class and try
+ * different ways of creating a retrofitted class (for example, with/without
+ * caching).
  * 
  * @author Ville Peurala
  */
@@ -98,12 +97,12 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     }
 
     /**
-     * Person implements Comparable, so human implements it too,
-     * although interface Human does not extend from Comparable!
+     * Person implements Comparable, so human implements it too, although
+     * interface Human does not extend from Comparable!
      */
     public final void testCanCastProxyToAnyInterfaceImplementedByTargetObject() {
         Comparable<?> comparable = (Comparable<?>) human;
-        // This idiotic assertion is here just because we have very 
+        // This idiotic assertion is here just because we have very
         // strict compiler settings in this project. The code would
         // not compile with unused local variable 'comparable',
         // so we have to use it in some way.
@@ -118,7 +117,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
         Resident localResident = (Resident) retrofittedObject;
         assertEquals("City: Pori.", localResident.getHomeAddress());
         Comparable<?> localComparable = (Comparable<?>) retrofittedObject;
-        // This idiotic assertion is here just because we have very 
+        // This idiotic assertion is here just because we have very
         // strict compiler settings in this project. The code would
         // not compile with unused local variable 'comparable',
         // so we have to use it in some way.
@@ -297,11 +296,10 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     public final void testCannotRetrofitIfNoSuitableClassloaderExists()
             throws Exception {
         try {
-            createRetrofitter()
-                    .partial(
-                            new Object(),
-                            new EvilClassLoader()
-                                    .loadClass("org.jretrofit.fixture.EvilFoo"));
+            createRetrofitter().partial(
+                    new Object(),
+                    new EvilClassLoader()
+                            .loadClass("org.jretrofit.fixture.EvilFoo"));
             fail();
         } catch (RuntimeException expected) {
             String message = expected.getMessage();
@@ -332,7 +330,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     }
 
     private static class SerializableStub implements Serializable {
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 1977L;
         public String getName() {
             return "Pena";
         }
