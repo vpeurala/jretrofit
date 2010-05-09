@@ -71,10 +71,16 @@ public class Reflect {
         }
 
         public RField<Object> field(String name) {
+            return field(name, null);
+        }
+
+        public <Type> RField<Type> field(String name, Class<Type> type) {
             final Set<Field> allFields = allFields(klass);
             final Set<Field> matchingFields = new HashSet<Field>();
             for (final Field f : allFields) {
-                if (f.getName().equals(name)) {
+                if (f.getName().equals(name)
+                        && (type == null || autoboxIfNecessary(f.getType())
+                                .equals(type))) {
                     matchingFields.add(f);
                 }
             }
@@ -83,7 +89,7 @@ public class Reflect {
                         + "' on target object '" + targetObject
                         + "' of class '" + klass + "'.");
             }
-            return new RField<Object>(matchingFields, targetObject);
+            return new RField<Type>(matchingFields, targetObject);
         }
     }
 

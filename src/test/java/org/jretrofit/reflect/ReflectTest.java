@@ -36,4 +36,9 @@ public class ReflectTest extends TestCase {
         Object result = Reflect.on(ville).field("age").get();
         assertEquals(new Integer(32), result);
     }
+
+    public void testFieldValueCanBeGetWithType() {
+        Integer result = Reflect.on(ville).field("age", Integer.class).get();
+        assertEquals(new Integer(32), result);
+    }
 }
