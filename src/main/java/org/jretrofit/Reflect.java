@@ -127,6 +127,24 @@ public class Reflect {
         private Field findSuitableField() {
             return possibleFields.iterator().next();
         }
+
+        public void set(Type value) {
+            Field field = findSuitableField();
+            if (!field.isAccessible()) {
+                field.setAccessible(true);
+            }
+            set(field, value);
+        }
+
+        private void set(Field field, Type value) {
+            try {
+                field.set(targetObject, value);
+            } catch (IllegalArgumentException e) {
+                throw new ReflectException(e);
+            } catch (IllegalAccessException e) {
+                throw new ReflectException(e);
+            }
+        }
     }
 
     public static class RMethod<ReturnType> {
