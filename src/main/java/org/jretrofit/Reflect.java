@@ -1,5 +1,6 @@
 package org.jretrofit;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -40,11 +41,16 @@ public class Reflect {
             return targetObject != null;
         }
 
-        public RMethod method(final String name) {
+        public RMethod<Object> method(final String name) {
+            return method(name, Object.class);
+        }
+
+        public <ReturnType> RMethod<ReturnType> method(String name,
+                Class<ReturnType> returnType) {
             final Set<Method> allMethods = allMethods(klass);
             final Set<Method> matchingMethods = new HashSet<Method>();
             for (final Method m : allMethods) {
-                if (m.getName().equals(name)) {
+                if (isMethodCompatible(name, returnType, m)) {
                     matchingMethods.add(m);
                 }
             }
@@ -53,11 +59,71 @@ public class Reflect {
                         + "' on target object '" + targetObject
                         + "' of class '" + klass + "'.");
             }
-            return new RMethod(matchingMethods, targetObject);
+            return new RMethod<ReturnType>(matchingMethods, targetObject);
+        }
+
+        private <ReturnType> boolean isMethodCompatible(String name,
+                Class<ReturnType> returnType, final Method m) {
+            return m.getName().equals(name)
+                    && (m.getReturnType() == Void.TYPE || returnType
+                            .isAssignableFrom(autoboxIfNecessary(m
+                                    .getReturnType())));
+        }
+
+        public RField<Object> field(String name) {
+            final Set<Field> allFields = allFields(klass);
+            final Set<Field> matchingFields = new HashSet<Field>();
+            for (final Field f : allFields) {
+                if (f.getName().equals(name)) {
+                    matchingFields.add(f);
+                }
+            }
+            if (matchingFields.isEmpty()) {
+                throw new ReflectException("No field named '" + name
+                        + "' on target object '" + targetObject
+                        + "' of class '" + klass + "'.");
+            }
+            return new RField<Object>(matchingFields, targetObject);
         }
     }
 
-    public static class RMethod {
+    public static class RField<Type> {
+        private final String name;
+        private final Object targetObject;
+        private final Set<Field> possibleFields;
+
+        public RField(final Set<Field> possibleFields, final Object targetObject) {
+            requireNotEmpty(possibleFields);
+            this.name = possibleFields.iterator().next().getName();
+            this.targetObject = targetObject;
+            this.possibleFields = possibleFields;
+        }
+
+        public Type get() {
+            Field field = findSuitableField();
+            if (!field.isAccessible()) {
+                field.setAccessible(true);
+            }
+            return get(field);
+        }
+
+        @SuppressWarnings("unchecked")
+        private Type get(Field field) {
+            try {
+                return (Type) field.get(targetObject);
+            } catch (IllegalArgumentException e) {
+                throw new ReflectException(e);
+            } catch (IllegalAccessException e) {
+                throw new ReflectException(e);
+            }
+        }
+
+        private Field findSuitableField() {
+            return possibleFields.iterator().next();
+        }
+    }
+
+    public static class RMethod<ReturnType> {
         private final String name;
         private final Object targetObject;
         private final Set<Method> possibleMethods;
@@ -70,7 +136,7 @@ public class Reflect {
             this.possibleMethods = possibleMethods;
         }
 
-        public Object invoke(Object... args) {
+        public ReturnType invoke(Object... args) {
             Method method = findSuitableMethod(args);
             if (!method.isAccessible()) {
                 method.setAccessible(true);
@@ -78,9 +144,10 @@ public class Reflect {
             return invoke(method, args);
         }
 
-        private Object invoke(Method method, Object... args) {
+        @SuppressWarnings("unchecked")
+        private ReturnType invoke(Method method, Object... args) {
             try {
-                return method.invoke(targetObject, args);
+                return (ReturnType) method.invoke(targetObject, args);
             } catch (IllegalArgumentException e) {
                 throw new ReflectException(e);
             } catch (IllegalAccessException e) {
@@ -136,7 +203,19 @@ public class Reflect {
         return allMethods;
     }
 
-    public static Class<?> autoboxIfNecessary(Class<?> klass) {
+    private static Set<Field> allFields(final Class<?> klass) {
+        final Set<Field> allFields = new HashSet<Field>();
+        Class<?> currentLevelOfDeclarations = klass;
+        while (currentLevelOfDeclarations != null) {
+            allFields.addAll(Arrays.asList(currentLevelOfDeclarations
+                    .getDeclaredFields()));
+            currentLevelOfDeclarations = currentLevelOfDeclarations
+                    .getSuperclass();
+        }
+        return allFields;
+    }
+
+    private static Class<?> autoboxIfNecessary(Class<?> klass) {
         if (klass.isPrimitive()) {
             return autobox(klass);
         }
