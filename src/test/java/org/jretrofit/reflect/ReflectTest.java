@@ -21,9 +21,8 @@ public class ReflectTest extends TestCase {
         assertEquals(new Integer(32), result);
     }
 
-    // FIXME VP Failing test
-    public void _testSetterCanBeInvoked() {
-        Reflect.on(ville).method("setAge").invoke(new Integer(31));
-        assertEquals(33, ville.getAge());
+    public void testSetterCanBeInvoked() {
+        Reflect.on(ville).method("setAge").invoke(31);
+        assertEquals(31, ville.getAge());
     }
 }

@@ -96,14 +96,31 @@ public class Reflect {
                 argTypes.add(arg.getClass());
             }
             for (final Method m : possibleMethods) {
-                if (Arrays.asList(m.getParameterTypes()).equals(argTypes)) {
+                if (areArgumentTypesCompatible(argTypes, m)) {
                     return m;
                 }
             }
-            throw new ReflectException("No method named '" + name
-                    + "' with args '" + Arrays.asList(args)
-                    + "' in targetObject '" + targetObject
+            throw new ReflectException("No method '" + name + "(" + argTypes
+                    + ")" + "' in targetObject '" + targetObject
                     + "'. Methods tried: " + possibleMethods);
+        }
+
+        private boolean areArgumentTypesCompatible(
+                final List<Class<?>> callParameterTypes, final Method m) {
+            List<Class<?>> methodParameterTypes = Arrays.asList(m
+                    .getParameterTypes());
+            if (methodParameterTypes.size() != callParameterTypes.size()) {
+                return false;
+            }
+            for (int i = 0; i < methodParameterTypes.size(); i++) {
+                Class<?> methodParameterType = autoboxIfNecessary(methodParameterTypes
+                        .get(i));
+                Class<?> callParameterType = callParameterTypes.get(i);
+                if (!methodParameterType.isAssignableFrom(callParameterType)) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
@@ -117,6 +134,42 @@ public class Reflect {
                     .getSuperclass();
         }
         return allMethods;
+    }
+
+    public static Class<?> autoboxIfNecessary(Class<?> klass) {
+        if (klass.isPrimitive()) {
+            return autobox(klass);
+        }
+        return klass;
+    }
+
+    private static Class<?> autobox(Class<?> klass) {
+        if (Boolean.TYPE.equals(klass)) {
+            return Boolean.class;
+        }
+        if (Byte.TYPE.equals(klass)) {
+            return Byte.class;
+        }
+        if (Integer.TYPE.equals(klass)) {
+            return Integer.class;
+        }
+        if (Long.TYPE.equals(klass)) {
+            return Long.class;
+        }
+        if (Short.TYPE.equals(klass)) {
+            return Short.class;
+        }
+        if (Float.TYPE.equals(klass)) {
+            return Float.class;
+        }
+        if (Double.TYPE.equals(klass)) {
+            return Double.class;
+        }
+        if (Character.TYPE.equals(klass)) {
+            return Character.class;
+        }
+        throw new BugException("Tried to autobox class '" + klass
+                + "' which is not autoboxable.");
     }
 
     private static void requireNotNull(final Object notNull,

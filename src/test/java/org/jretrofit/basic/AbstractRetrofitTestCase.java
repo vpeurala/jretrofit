@@ -141,21 +141,27 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
         try {
             human.setFavoriteColor(Color.blue);
             fail();
-        } catch (UnsupportedOperationException expected) {}
+        } catch (UnsupportedOperationException expected) {
+            // ok
+        }
     }
 
     public final void testCannotInvokeAMethodWithReturnValueOfWiderType() {
         try {
             human.getHome();
             fail();
-        } catch (UnsupportedOperationException expected) {}
+        } catch (UnsupportedOperationException expected) {
+            // ok
+        }
     }
 
     public final void testCannotInvokeAMethodWithWrongNumberOfParameters() {
         try {
             human.getAge(new Date());
             fail();
-        } catch (UnsupportedOperationException expected) {}
+        } catch (UnsupportedOperationException expected) {
+            // ok
+        }
     }
 
     public final void testCheckedExceptionsWhichAreDeclaredOnTheInterfaceAreThrownNormally() {

@@ -15,15 +15,13 @@
  */
 package org.jretrofit;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
 /**
  * @author Ville Peurala
  */
-class CachingMethodLookupHelper extends AbstractMethodLookupHelper implements
-        Serializable {
+class CachingMethodLookupHelper extends AbstractMethodLookupHelper {
     private static final long serialVersionUID = 1977L;
     private final HashMap<Method, Method> methodCache = new HashMap<Method, Method>();
 

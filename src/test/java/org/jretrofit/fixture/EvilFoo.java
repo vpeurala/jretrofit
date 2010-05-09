@@ -19,5 +19,5 @@ package org.jretrofit.fixture;
  * @author Ville Peurala
  */
 public class EvilFoo {
-
+    // empty class used in tests
 }

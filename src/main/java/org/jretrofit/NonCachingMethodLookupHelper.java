@@ -15,14 +15,12 @@
  */
 package org.jretrofit;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
  * @author Ville Peurala
  */
-class NonCachingMethodLookupHelper extends AbstractMethodLookupHelper implements
-        Serializable {
+class NonCachingMethodLookupHelper extends AbstractMethodLookupHelper {
     private static final long serialVersionUID = 1977L;
 
     public NonCachingMethodLookupHelper(Object target) {
