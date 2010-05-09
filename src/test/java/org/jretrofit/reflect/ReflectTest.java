@@ -9,6 +9,7 @@ import org.jretrofit.fixture.Person;
 public class ReflectTest extends TestCase {
     private Fixture fixture;
     private Person ville;
+    private Object result;
 
     @Override
     protected void setUp() throws Exception {
@@ -17,14 +18,13 @@ public class ReflectTest extends TestCase {
     }
 
     public void testGetterCanBeInvoked() {
-        Object result = Reflect.on(ville).method("getAge").invoke();
-        assertEquals(new Integer(32), result);
+        result = Reflect.on(ville).method("getAge").invoke();
+        assertResult(new Integer(32));
     }
 
     public void testGetterCanBeInvokedWithReturnType() {
-        Integer result = Reflect.on(ville).method("getAge", Integer.class)
-                .invoke();
-        assertEquals(new Integer(32), result);
+        result = Reflect.on(ville).method("getAge", Integer.class).invoke();
+        assertResult(new Integer(32));
     }
 
     public void testSetterCanBeInvoked() {
@@ -33,13 +33,13 @@ public class ReflectTest extends TestCase {
     }
 
     public void testFieldValueCanBeGet() {
-        Object result = Reflect.on(ville).field("age").get();
-        assertEquals(new Integer(32), result);
+        result = Reflect.on(ville).field("age").get();
+        assertResult(new Integer(32));
     }
 
     public void testFieldValueCanBeGetWithType() {
-        Integer result = Reflect.on(ville).field("age", Integer.class).get();
-        assertEquals(new Integer(32), result);
+        result = Reflect.on(ville).field("age", Integer.class).get();
+        assertResult(new Integer(32));
     }
 
     public void testFieldValueCanBeSet() {
@@ -50,5 +50,9 @@ public class ReflectTest extends TestCase {
     public void testFieldValueCanBeSetWithType() {
         Reflect.on(ville).field("age", Integer.class).set(new Integer(31));
         assertEquals(31, ville.getAge());
+    }
+
+    private void assertResult(Object expected) {
+        assertEquals(expected, result);
     }
 }
