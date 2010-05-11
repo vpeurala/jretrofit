@@ -10,6 +10,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Support for easy reflection usage. This API makes
+ * reflection calls feel more natural and it also
+ * wraps all exceptions that can be thrown from
+ * reflection into a {@link ReflectException}.
+ * 
+ * @author Ville Peurala
+ */
 public class Reflect {
     public static RObject on(Class<?> wrappedClass) {
         return new RObject(wrappedClass);
