@@ -1,4 +1,4 @@
-package org.jretrofit.reflect;
+package org.jretrofit.test.reflect;
 
 import junit.framework.TestCase;
 
