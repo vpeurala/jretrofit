@@ -13,7 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jretrofit.test.retrofit;
+package org.jretrofit.test;
+
+import org.jretrofit.test.reflect.ReflectTest;
+import org.jretrofit.test.retrofit.AllMethodsNotImplementedExceptionTest;
+import org.jretrofit.test.retrofit.RetrofitWithMethodCachingTest;
+import org.jretrofit.test.retrofit.RetrofitWithoutMethodCachingTest;
+import org.jretrofit.test.retrofit.RetrofitterCreationTest;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -29,6 +35,7 @@ public class AllTests {
         suite.addTestSuite(RetrofitWithoutMethodCachingTest.class);
         suite.addTestSuite(RetrofitWithMethodCachingTest.class);
         suite.addTestSuite(AllMethodsNotImplementedExceptionTest.class);
+        suite.addTestSuite(ReflectTest.class);
         //$JUnit-END$
         return suite;
     }
