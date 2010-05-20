@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jretrofit</groupId>
   <artifactId>jretrofit</artifactId>
-  <version>1.1</version>
+  <version>1.2</version>
   <name>JRetrofit</name>
   <description>A Java library for adding interfaces to objects at runtime.</description>
   <url>www.jretrofit.org</url>
@@ -281,6 +281,28 @@
         <configuration>
           <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <check>
+            <branchRate>100</branchRate>
+            <lineRate>100</lineRate>
+            <haltOnFailure>true</haltOnFailure>
+            <totalBranchRate>100</totalBranchRate>
+            <totalLineRate>100</totalLineRate>
+          </check>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
