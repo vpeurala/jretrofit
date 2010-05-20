@@ -27,7 +27,7 @@ import junit.framework.TestSuite;
 /**
  * @author Ville Peurala
  */
-public class AllTests {
+public class AllUnitTests {
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for org.jretrofit");
         //$JUnit-BEGIN$
