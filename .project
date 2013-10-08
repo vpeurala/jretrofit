@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
   <name>JRetrofit</name>
+  <comment>A Java library for adding interfaces to objects at runtime.</comment>
   <projects/>
   <buildSpec>
     <buildCommand>
