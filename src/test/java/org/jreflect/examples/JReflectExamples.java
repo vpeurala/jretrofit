@@ -9,19 +9,6 @@ import org.jretrofit.Reflect;
 import org.junit.Test;
 
 public class JReflectExamples {
-    private static class ExampleClass {
-        public int argumentOfMethodWithPrimitiveIntParameter;
-        public Integer argumentOfMethodWithObjectIntegerParameter;
-
-        public void methodWithPrimitiveIntParameter(int input) {
-            argumentOfMethodWithPrimitiveIntParameter = input;
-        }
-
-        public void methodWithObjectIntegerParameter(Integer input) {
-            argumentOfMethodWithObjectIntegerParameter = input;
-        }
-    }
-
     private final Random random = new Random();
     private final ExampleClass example = new ExampleClass();
 
