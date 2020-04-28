@@ -15,13 +15,15 @@
  */
 package org.jretrofit.test.retrofit;
 
-import java.awt.Color;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import junit.framework.TestCase;
+import org.apache.logging.log4j.core.Appender;
+import org.jretrofit.AllMethodsNotImplementedException;
+import org.jretrofit.Retrofit;
+import org.jretrofit.Retrofitter;
+import org.jretrofit.fixture.*;
+
+import java.awt.*;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
@@ -29,29 +31,16 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import junit.framework.TestCase;
-
-import org.apache.log4j.Appender;
-import org.jretrofit.AllMethodsNotImplementedException;
-import org.jretrofit.Retrofit;
-import org.jretrofit.Retrofitter;
-import org.jretrofit.fixture.AngryException;
-import org.jretrofit.fixture.City;
-import org.jretrofit.fixture.CompleteHuman;
-import org.jretrofit.fixture.Human;
-import org.jretrofit.fixture.Person;
-import org.jretrofit.fixture.Resident;
-
 /**
  * A set of base assertions for unit tests. Extend from this class and try
  * different ways of creating a retrofitted class (for example, with/without
  * caching).
- * 
+ *
  * @author Ville Peurala
  */
 public abstract class AbstractRetrofitTestCase extends TestCase {
     private static void assertNotImplementedMethods(String[] methodNames,
-            AllMethodsNotImplementedException e) {
+                                                    AllMethodsNotImplementedException e) {
         List<String> assertedMethodNamesAsList = Arrays.asList(methodNames);
         List<String> notImplementedMethodNamesAsList = new ArrayList<String>();
         Method[] notImplementedMethods = e.getNotImplementedMethods();
@@ -76,6 +65,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
             }
         }
     }
+
     protected Human human;
 
     protected Person person;
@@ -110,8 +100,8 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     }
 
     public final void testCanImplementMultipleInterfaces() {
-        Object retrofittedObject = Retrofit.partial(person, new Class[] {
-                Human.class, Resident.class });
+        Object retrofittedObject = Retrofit.partial(person, new Class[]{
+                Human.class, Resident.class});
         Human localHuman = (Human) retrofittedObject;
         assertEquals("Antti", localHuman.getName());
         Resident localResident = (Resident) retrofittedObject;
@@ -188,7 +178,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
     public final void testCompleteRetrofittingOfHumanAndComparableWorksOnCompleteHuman() {
         Object retrofittedObject = createRetrofitter().complete(
                 new CompleteHuman(),
-                new Class[] { Human.class, Comparable.class });
+                new Class[]{Human.class, Comparable.class});
         assertEquals("White", ((Human) retrofittedObject).getFavoriteColor());
         assertEquals(1, ((Comparable<?>) retrofittedObject).compareTo(null));
     }
@@ -197,8 +187,8 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
         try {
             createRetrofitter().complete(person, Human.class);
         } catch (AllMethodsNotImplementedException e) {
-            assertNotImplementedMethods(new String[] { "setFavoriteColor",
-                    "getAge", "getHome" }, e);
+            assertNotImplementedMethods(new String[]{"setFavoriteColor",
+                    "getAge", "getHome"}, e);
         }
     }
 
@@ -337,6 +327,7 @@ public abstract class AbstractRetrofitTestCase extends TestCase {
 
     private static class SerializableStub implements Serializable {
         private static final long serialVersionUID = 1977L;
+
         public String getName() {
             return "Pena";
         }

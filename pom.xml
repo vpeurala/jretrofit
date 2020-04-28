@@ -31,10 +31,14 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.9</version>
-      <scope>test</scope>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.13.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.13.2</version>
     </dependency>
   </dependencies>
   <repositories>
@@ -282,30 +286,30 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
-        <!-- TODO: Check disabled for now, to get this project to build again. - Ville Peurala, 2020-04-28
-      <plugin>
+      <!-- TODO: Check disabled for now, to get this project to build again. - Ville Peurala, 2020-04-28
+        <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <version>2.4</version>
         <configuration>
-          <check>
-            <branchRate>100</branchRate>
-            <lineRate>100</lineRate>
-            <haltOnFailure>true</haltOnFailure>
-            <totalBranchRate>100</totalBranchRate>
-            <totalLineRate>100</totalLineRate>
-          </check>
+        <check>
+        <branchRate>100</branchRate>
+        <lineRate>100</lineRate>
+        <haltOnFailure>true</haltOnFailure>
+        <totalBranchRate>100</totalBranchRate>
+        <totalLineRate>100</totalLineRate>
+        </check>
         </configuration>
         <executions>
-          <execution>
-            <goals>
-              <goal>clean</goal>
-              <goal>check</goal>
-            </goals>
-          </execution>
+        <execution>
+        <goals>
+        <goal>clean</goal>
+        <goal>check</goal>
+        </goals>
+        </execution>
         </executions>
-      </plugin>
-        -->
-    </plugins>
-  </build>
-</project>
+        </plugin>
+      -->
+      </plugins>
+    </build>
+  </project>
