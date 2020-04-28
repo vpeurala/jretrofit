@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jretrofit</groupId>
   <artifactId>jretrofit</artifactId>
@@ -21,7 +21,7 @@
   </licenses>
   <scm>
     <connection>scm:git://github.com/vpeurala/JRetrofit.git</connection>
-    <url>http://github.com/vpeurala/JRetrofit</url>
+    <url>https://github.com/vpeurala/JRetrofit</url>
   </scm>
   <dependencies>
     <dependency>
@@ -44,7 +44,7 @@
       </snapshots>
       <id>central</id>
       <name>Maven Repository Switchboard</name>
-      <url>http://repo1.maven.org/maven2</url>
+      <url>https://repo1.maven.org/maven2</url>
     </repository>
   </repositories>
   <pluginRepositories>
@@ -57,7 +57,7 @@
       </snapshots>
       <id>central</id>
       <name>Maven Plugin Repository</name>
-      <url>http://repo1.maven.org/maven2</url>
+      <url>https://repo1.maven.org/maven2</url>
     </pluginRepository>
   </pluginRepositories>
   <build>
