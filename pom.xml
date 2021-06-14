@@ -77,7 +77,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.1</version>
+          <version>3.2.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
